@@ -14,7 +14,7 @@ static _Bool 	ml_static_list(void *ptr, int rule)
 			return (0);
 	}
 	else if (rule == ML_DELELEM)
-		ml_delelem(&head, (t_ml*)ptr); //// так как мы сохранили указатель на память в виде последнего элемента, он хранит другой next!!??
+		ml_delelem(&head, ptr); //// так как мы сохранили указатель на память в виде последнего элемента, он хранит другой next!!??
 	else if (rule == ML_CLEARLIST)
 		ml_clear_lst(&head);
 }

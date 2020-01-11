@@ -19,19 +19,26 @@ _Bool		ml_clear_lst(t_ml **head)
 		prev = *head;
 		*head = (*head)->next;
 	}
+	free(prev->data);
+	free(prev);
 	return (1);
 }
 
-void		ml_delelem(t_ml **head, t_ml *delelem)/// не работатет передача указателя!!
+void		ml_delelem(t_ml **head, void *ptr)/// не работатет передача указателя!!
 {
-	if (*head == delelem)
+	t_ml *tmp;
+
+	tmp = *head;
+	if (tmp->data == ptr)
 		*head = (*head)->next;
 	else
 	{
-		delelem->prev->next = delelem->next;
-		if (delelem->next)
-			delelem->next->prev = delelem->prev;
+		while (tmp->data != ptr)
+			tmp = tmp->next;
+		tmp->prev->next = tmp->next;
+		if (tmp->next)
+			tmp->next->prev = tmp->prev;
 	}
-	free(delelem->data);
-	free(delelem);
+	free(tmp->data);
+	free(tmp);
 }

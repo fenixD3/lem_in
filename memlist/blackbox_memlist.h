@@ -23,7 +23,7 @@ typedef struct	s_ml
 t_ml 		*ml_create(void *ptr);
 _Bool		ml_push_front(t_ml **head, t_ml *new);
 
-void		ml_delelem(t_ml **head, t_ml *delelem);
+void		ml_delelem(t_ml **head, void *ptr);
 _Bool		ml_clear_lst(t_ml **head);
 
 #endif
