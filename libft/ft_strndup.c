@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "memlist.h"
 
 char	*ft_strndup(const char *s1, size_t n)
 {
@@ -19,9 +20,9 @@ char	*ft_strndup(const char *s1, size_t n)
 
 	len = ft_strlen(s1);
 	if (len < n)
-		str = (char*)malloc(sizeof(str) * (len + 1));
+		str = (char*)ml_malloc(sizeof(str) * (len + 1));
 	else
-		str = (char*)malloc(sizeof(str) * (n + 1));
+		str = (char*)ml_malloc(sizeof(str) * (n + 1));
 	if (str == NULL)
 		return (NULL);
 	ft_strlcpy(str, s1, n + 1);

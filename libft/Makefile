@@ -28,21 +28,29 @@ SRCS = ft_strlen.c ft_strcmp.c ft_strncmp.c ft_strcpy.c ft_strncpy.c \
 	ft_lstadd.c ft_lstiter.c ft_lstpush.c ft_pow.c ft_fib.c ft_sqrt.c \
 	ft_isdigit.c ft_isspace.c get_next_line.c ft_is_complex_string.c \
 	ft_lstcirc_add.c ft_lstcirc_delelem.c ft_lstcirc_findcontent_size.c \
-	ft_strjoinre.c ft_strndup.c ft_lstcirc_strnew.c ft_strlcpy.c ft_sstrchr.c
+	ft_strjoinre.c ft_strndup.c ft_lstcirc_strnew.c ft_strlcpy.c ft_sstrchr.c \
+	go_exit.c
+
+SRC_ML_DIR = memlist/
+SRC_ML = ml_create.c ml_del.c ml_general.c
+
+SRCS_ML = $(addprefix $(SRC_ML_DIR),$(SRC_ML))
 
 OBJECTS = $(SRCS:.c=.o)
+OBJECTS_ML = $(SRC_ML:.c=.o)
 
 INCLUDE = ./
 
 all: $(NAME)
 
 $(NAME):
-	@gcc -c $(SRCS) $(FLAGS) -I$(INCLUDE)
-	@ar rc $(NAME) $(OBJECTS)
+	@gcc -c $(SRCS) $(SRCS_ML) $(FLAGS) -I$(INCLUDE)
+	@ar rc $(NAME) $(OBJECTS) $(OBJECTS_ML)
 	@ranlib $(NAME)
 
 clean:
 	@rm -f $(OBJECTS)
+	@rm -f $(OBJECTS_ML)
 
 fclean: clean
 	@rm -f $(NAME)

@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "memlist.h"
 
 t_list	*ft_lstcirc_strnew(char const *content, size_t content_size)
 {
 	t_list *new;
 
-	new = (t_list*)malloc(sizeof(t_list));
+	new = (t_list*)ml_malloc(sizeof(t_list));
 	if (new == NULL)
 		return (NULL);
 	if (content)

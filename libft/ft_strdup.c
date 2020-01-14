@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "libft.h"
+#include "memlist.h"
 
 char			*ft_strdup(const char *src)
 {
@@ -20,7 +21,7 @@ char			*ft_strdup(const char *src)
 
 	new_str = NULL;
 	len = ft_strlen(src);
-	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	new_str = (char *)ml_malloc(sizeof(char) * (len + 1));
 	if (new_str == NULL)
 		return (NULL);
 	ft_strcpy(new_str, src);

@@ -12,7 +12,7 @@
 
 void			*ml_malloc(size_t size);
 void			ml_free(void *ptr);
-void ml_free_all(void);
+void			ml_free_all(void);
 
 #endif
 

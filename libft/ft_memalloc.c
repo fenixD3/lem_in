@@ -12,12 +12,13 @@
 
 #include <stdlib.h>
 #include "libft.h"
+#include "memlist.h"
 
 void	*ft_memalloc(size_t size)
 {
 	void *new_mem;
 
-	if (!(new_mem = malloc(size)))
+	if (!(new_mem = ml_malloc(size)))
 		return (NULL);
 	return (ft_memset(new_mem, 0, size));
 }

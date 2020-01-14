@@ -24,7 +24,7 @@ _Bool		ml_clear_lst(t_ml **head)
 	return (1);
 }
 
-void		ml_delelem(t_ml **head, void *ptr)/// не работатет передача указателя!!
+void		ml_delelem(t_ml **head, void *ptr)
 {
 	t_ml *tmp;
 

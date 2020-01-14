@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#include "memlist.h"
+
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
@@ -111,5 +113,7 @@ t_list			*ft_lstcirc_delelem(t_list **del_elem);
 int				ft_lstcirc_findcontent_size(t_list **lst, size_t content_size);
 
 int				ft_is_complex_string(char *str, char delim);
+
+void			go_exit(int ko);
 
 #endif

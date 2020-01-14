@@ -3,18 +3,19 @@
 //
 
 #include "blackbox_memlist.h"
+#include "libft.h"
 
-static _Bool 	ml_static_list(void *ptr, int rule)
+static void		ml_static_list(void *ptr, int rule)
 {
 	static t_ml *head;
 
 	if (rule == ML_MALLOC)
 	{
 		if (!ml_push_front(&head, ml_create(ptr)))
-			return (0);
+			go_exit(1);
 	}
 	else if (rule == ML_DELELEM)
-		ml_delelem(&head, ptr); //// так как мы сохранили указатель на память в виде последнего элемента, он хранит другой next!!??
+		ml_delelem(&head, ptr);
 	else if (rule == ML_CLEARLIST)
 		ml_clear_lst(&head);
 }
