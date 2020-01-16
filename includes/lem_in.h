@@ -45,10 +45,12 @@ void making_lists(t_grp *grp);
 t_room *making_rooms_and_links(t_fline *lst, t_grp *grp);
 
 void 	finding_ways(t_grp *grp);
-
+int		set_and_go_back(t_room *room, t_grp *grp);
 
 
 void 	print_rooms(t_room *room);
-void 	print_rooms_with_depth(t_room *room);
+void	print_rooms_with_depth(t_room *start, t_room *room, t_link *link, int depth);
+void	print_ways(t_grp *grp);
+void	print_seted_way_number(t_room *room);
 
 #endif

@@ -5,40 +5,6 @@
 #include "../includes/lem_in.h"
 
 #include <stdio.h>
-#include <stdbool.h>
-
-
-
-
-int		give_lenlink(t_room *room, t_grp *grp)
-{
-	t_link	*link;
-	int		len;
-
-	link = room->link;
-	len = 0;
-	while (link)
-	{
-		if (link->room != grp->start)
-		len++;
-		link = link->next;
-	}
-	return (len);
-}
-
-t_link	*can_set_depth(t_room *room)
-{
-	t_link	*link;
-
-	link = room->link;
-	while (link)
-	{
-		if ((link->room->depth != 0 && link->room->depth > room->depth))
-			return (link);
-		link = link->next;
-	}
-	return (link);
-}
 
 int		set_depth(t_room *room, t_grp *grp)
 {
@@ -60,18 +26,25 @@ int		set_depth(t_room *room, t_grp *grp)
 	return (setted);
 }
 
-int 	set_wave(t_room *room, int depth, t_grp *grp)
+int wave(t_room *room, t_room *prev, int depth, t_grp *grp)
 {
-	t_link *link;
+	t_link		*link;
+	static int	setted;
+	int 		tmp;
 
-	if (set_depth(room, grp) || depth <= room->depth)
+	if (room->depth == 0)
+		setted = 0;
+	if (!(tmp = set_depth(room, grp)) && depth == room->depth)
 		return (0);
-
+	setted += tmp;
+	link = room->link;
 	while (link)
 	{
-		set_wave(link->room, depth, grp);
+		if (link->room != prev && depth >= link->room->depth && link->room->depth > room->depth && link->room->way_number == 0)
+			wave(link->room, room, depth, grp);
 		link = link->next;
 	}
+	return (setted);
 }
 
 /*
@@ -85,10 +58,19 @@ void	moon(t_grp *grp)
 	depth = 0;
 	while (grp->end->depth == 0)
 	{
-		set_wave(grp->start, depth, grp);
+		if (depth == 3)
+			depth = depth;
+		if (!wave(grp->start, NULL, depth, grp))
+			break ;
 		depth++;
 	}
+	if (grp->end->depth != 0)
+		ft_putnbr(1);
+	else
+		ft_putnbr(0);
+	ft_putchar('\n');
 }
+
 
 void 	finding_ways(t_grp *grp)
 {
@@ -98,47 +80,6 @@ void 	finding_ways(t_grp *grp)
 	room = grp->start;
 	room->depth = 0;
 	moon(grp);
-	print_rooms_with_depth(grp->room);
+	set_and_go_back(grp->end, grp);
+	print_ways(grp);
 }
-
-
-
-/*_Bool set_wave(t_room *room, int prev_depth, t_grp *grp, _Bool force_go)
-{
-	t_link	*link;
-	int		flag;
-	int		len;
-
-	link = room->link;
-	prev_depth++;
-	len = give_lenlink(room, grp);
-	if ((flag = can_set_depth(room, len, grp)) == -1)
-		return (0);
-	while (link)
-	{
-		printf("\t\t%s %s\n", room->name, link->room->name);
-		printf("--------------\n");
-		print_rooms_with_depth(grp->room);
-
-		if (link->room == grp->start)
-			;
-		else if (flag >= len && set_wave(link->room, prev_depth, grp, 0))
-			return (1);
-		else if (link->room->depth == 0 || link->room->depth > prev_depth)
-		{
-			link->room->depth = prev_depth;
-			if (grp->end == link->room)
-				return (1);
-		}
-		else if (link->room->depth <= prev_depth)
-			flag++;
-		link = link->next;
-		if (!link && len == flag && flag++)
-			link = room->link;
-	}
-	printf("==============\n");
-	printf("\t\t%s\n", room->name);
-	print_rooms_with_depth(grp->room);
-	printf("==============\n");
-	return (0);
-}*/

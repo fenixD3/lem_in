@@ -97,7 +97,7 @@ t_room *making_rooms_and_links(t_fline *lst, t_grp *grp)
 	int		tmp;
 
 	rooms = NULL;
-	head = lst;
+	head = lst->next;
 	while (lst)
 	{
 		if ((tmp = which_type_of_line(lst->line)) == 1 || tmp == 2)
