@@ -18,8 +18,8 @@ void	go_exit(int ko)
 	if (ko == 2)
 		ft_putendl("KO");
 	else if (ko == 1)
-		ft_putendl("Error");
+		ft_putendl("ERROR");
 	else if (ko == 3)
-		ft_putendl("Error: in reading file");
+		ft_putendl("ERROR: in read_and_check file");
 	exit(1);
 }

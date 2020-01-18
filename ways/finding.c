@@ -51,7 +51,7 @@ int wave(t_room *room, t_room *prev, int depth, t_grp *grp)
 ** moon causes waves
 */
 
-void	moon(t_grp *grp)
+int		moon(t_grp *grp)
 {
 	int depth;
 
@@ -65,21 +65,25 @@ void	moon(t_grp *grp)
 		depth++;
 	}
 	if (grp->end->depth != 0)
-		ft_putnbr(1);
+		return (1);
 	else
-		ft_putnbr(0);
-	ft_putchar('\n');
+		return (0);
 }
 
 
 void 	finding_ways(t_grp *grp)
 {
 	t_room *room;
-
+	int tmp = 0;
 
 	room = grp->start;
 	room->depth = 0;
-	moon(grp);
-	set_and_go_back(grp->end, grp);
+
+	while (moon(grp)) /// нужен контроль количестьва нагененрированных путей
+	{
+		while (set_and_go_back(grp->end, grp))
+			;
+		clear_nonwayed_nodes_depth(grp->room);
+	}
 	print_ways(grp);
 }

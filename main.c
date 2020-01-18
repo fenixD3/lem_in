@@ -24,7 +24,9 @@ int main(void)
 	/////
 
 	making_lists(&grp);
-	maked_list = clock();;
+	make_names_aroud_start_end_better(&grp);
+	maked_list = clock();
+
 	finding_ways(&grp);
 	end = clock();
 
@@ -32,8 +34,10 @@ int main(void)
 	double seconds2 = ((double)(end - maked_list))/CLOCKS_PER_SEC;
 	double seconds3 = ((double)(end - start))/CLOCKS_PER_SEC;
 
-	printf("maked list:\t%f\nfind way:\t%f\nall:\t\t%f\npercent:\t%.2f%%\n", seconds1, seconds2, seconds3, (seconds2/seconds3)*100);
+	printf("maked list:\t%f\nfind way:\t%f\nall:\t\t%f\npercent:\t%.2f%%\n\n", seconds1, seconds2, seconds3, (seconds2/seconds3)*100);
 
+	print_links(&grp, NULL, 's', 0);
+	print_links(&grp, NULL, 'e', 0);
 
 	exit(0);
 }

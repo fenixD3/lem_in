@@ -23,9 +23,57 @@ void 	print_rooms(t_room *room)
 	}
 }
 
-void	print_rooms_with_depth(t_room *start, t_room *room, t_link *link, int depth)
+void print_links(t_grp *grp, t_room *room, char wich_node, char rule)
 {
-	printf(".............\nroom = %s  link = %s  depth = %d\n-------------\n",room->name, link->room->name, depth);
+	int i = 0;
+	int j = 0;
+
+	printf("\n");
+	t_link *link;
+	if (wich_node == 's')
+	{
+		printf("Start node: ");
+		link = grp->start->link;
+	}
+	else if (wich_node == 'e')
+	{
+		printf("End node: ");
+		link = grp->start->link;
+	}
+	else
+	{
+		printf("node %s: ", room->name);
+		link = room->link;
+	}
+	printf("name:depth:way_number  ");
+	while (link)
+	{
+		if (rule == 'a' || link->room->way_number)
+		{
+			printf("%s:%d:%d  ", link->room->name, link->room->depth,link->room->way_number);
+			j++;
+		}
+		link = link->next;
+		i++;
+	}
+	printf("\nlinks: %d Ways: %d\n-------------------------\n", i, j);
+}
+
+void print_links_node_by_name(char *name, t_room *room, int need_all)
+{
+	char c = 'b';
+	while (room && strcmp(name, room->name))
+		room = room->next;
+	if (need_all)
+		c = 'a';
+	if (!room)
+		printf("No name found\n");
+	else
+		print_links(NULL, room, c, c);
+}
+
+void	print_rooms_with_depth(t_room *start)
+{
 	while (start)
 	{
 		printf("%s : %d\n", start->name, start->depth);
@@ -34,25 +82,67 @@ void	print_rooms_with_depth(t_room *start, t_room *room, t_link *link, int depth
 	printf("--------------\n");
 }
 
+void print_rooms_with_depth_and_way(t_room *room, t_room *this_room)
+{
+	printf("name : depth : way_number\n");
+	while (room)
+	{
+		printf("%s\t%d\t", room->name, room->depth);
+		if (room->way_number)
+			printf("%d  ", room->way_number);
+		else
+			printf("   ");
+		if (this_room && this_room == room)
+		{
+			printf(" -> ");
+			///print_links(room, NULL, 0, 0);
+		}
+		else
+			printf("\n");
+		room = room->next;
+	}
+	printf("--------------\n");
+}
+
 void	print_way(t_room *room, t_grp *grp)
 {
-	t_link *link;
+	int way_num = room->way_number;
+	t_link	*link;
+	int i = 0;
 
 	link = room->link;
-	printf("Way: %d\n%s <- ", room->way_number,grp->start->name);
+	printf("Way: %d\n%s <- ", room->way_number,grp->end->name);
 	while (link->room != grp->start)
 	{
-		printf("%s <- ", room->name);
-		while (link && !link->room->way_number)
+
+		printf("%s:%d <- ", room->name, room->depth);
+		if (room->way_number == 1)
+			if (!strcmp("Bih5", room->name))
+				print_links(grp, room, 'a', 'a');
+		i++;
+		while (link)
+		{
+			if ((link->room->way_number == way_num && room->depth - link->room->depth == 1) || link->room == grp->start)
+				break ;
 			link = link->next;
+		}
+
 		if (!link)
 		{
 			printf("ALARM\n");
 			return ;
 		}
+		else if (link->room == grp->start)
+		{
+			printf("%s\n", link->room->name);
+			i++;
+			printf("Nodes: %d\n", i);
+			return ;
+		}
 		room = link->room;
 		link = room->link;
 	}
+	printf("\nNodes: %d\n", i);
 }
 
 void	print_ways(t_grp *grp)
@@ -88,4 +178,28 @@ void	print_seted_way_number(t_room *room)
 		link = link->next;
 	}
 	printf("\n");
+}
+
+void	make_names_aroud_start_end_better(t_grp *grp)
+{
+	ft_strncpy(grp->start->name, "strt", 100);
+	ft_strncpy(grp->end->name, "end", 100);
+	int i = 1;
+	t_link *link = grp->start->link;
+	while (link)
+	{
+		link->room->name[0] = 's';
+		ft_strncpy(link->room->name + 1, ft_itoa(i), 100);
+		i++;
+		link = link->next;
+	}
+	i = 1;
+	link = grp->end->link;
+	while (link)
+	{
+		link->room->name[0] = 'e';
+		ft_strncpy(link->room->name + 1, ft_itoa(i), 100);
+		i++;
+		link = link->next;
+	}
 }
