@@ -12,7 +12,7 @@
 
 int main(void)
 {
-	t_grp grp;
+	/*t_grp grp;
 
 	grp.room = NULL;
 	grp.start = NULL;
@@ -38,6 +38,17 @@ int main(void)
 
 	print_links(&grp, NULL, 's', 0);
 	print_links(&grp, NULL, 'e', 0);
+*/
+	//print_table_of_num_steps_by_len_one_way(3, 10);
+	int num_ants = 20;
+	int ways = 5;
+	int way1 = 3;
+	int way2 = 4;
+
+	int **arrarr = make_arr_of_num_steps_by_len_one_way(ways, num_ants);
+    print_sqr_arr(arrarr, ways, num_ants);
+    printf("\n");
+    print_arr_of_combinations(way1, way2, num_ants);
 
 	exit(0);
 }

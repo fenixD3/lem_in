@@ -85,5 +85,4 @@ void 	finding_ways(t_grp *grp)
 			;
 		clear_nonwayed_nodes_depth(grp->room);
 	}
-	print_ways(grp);
 }

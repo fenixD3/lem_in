@@ -116,9 +116,6 @@ void	print_way(t_room *room, t_grp *grp)
 	{
 
 		printf("%s:%d <- ", room->name, room->depth);
-		if (room->way_number == 1)
-			if (!strcmp("Bih5", room->name))
-				print_links(grp, room, 'a', 'a');
 		i++;
 		while (link)
 		{
@@ -201,5 +198,102 @@ void	make_names_aroud_start_end_better(t_grp *grp)
 		ft_strncpy(link->room->name + 1, ft_itoa(i), 100);
 		i++;
 		link = link->next;
+	}
+}
+
+
+void	print_table_of_num_steps_by_len_one_way(int num_ways, int num_ants)
+{
+	int line = 0;
+	int i = 0;
+	int j = 0;
+
+	printf("\n\nlen | ants\n");
+	printf(" \t|\t");
+	while (i++ < num_ants)
+		printf("%d\t", i + line);
+	printf("\n____________________________________________________________________\n");
+	while (j++ < num_ways)
+	{
+		i = 0;
+		printf("%d\t|\t", 2 + line);
+		while (i++ < num_ants)
+		{
+			printf("%d\t", i + line);
+		}
+		printf("\n");
+		line++;
+	}
+}
+
+void	print_sqr_arr(int** arrarr, int y, int x)
+{
+	int i = 0;
+	int j = 0;
+
+	printf("\n");
+	while (j < y)
+	{
+		i = 0;
+		printf("%d\t|\t", arrarr[j][i]);
+		while (i++ < x)
+		{
+			printf("%d\t", arrarr[j][i]);
+		}
+		printf("\n");
+		j++;
+	}
+}
+
+int		**make_arr_of_num_steps_by_len_one_way(int num_ways, int num_ants)
+{
+	int **arrarr;
+	int line = 0;
+	int i = 0;
+	int j = 0;
+
+	arrarr = (int**)ml_malloc(sizeof(int*) * num_ways);
+	while (i < num_ways)
+	{
+		arrarr[i] = (int*)ml_malloc(sizeof(int) * (num_ants + 1));
+		i++;
+	}
+
+	while (j < num_ways)
+	{
+		i = 0;
+		arrarr[j][i] = 2 + line;
+		while (i++ < num_ants)
+		{
+			arrarr[j][i] = i + line;
+		}
+		j++;
+		line++;
+	}
+	return (arrarr);
+}
+
+
+void    print_arr_of_combinations(int way1, int way2, int num_ants)
+{
+	int i = 0;
+	int j = 0;
+    int tmp1;
+    int tmp2;
+
+
+	j = 0;
+	while (j < way2 * 2)
+	{
+	    i = 0;
+        printf("%d\t|\t", j);
+		while (i++ < num_ants)
+		{
+		    tmp1 = way1 - 1 + i - j - 1;
+		    tmp2 = way2 - 1 + i - 1;
+            printf("%d\t", (tmp1 > tmp2) ? tmp1 : tmp2);
+		}
+	    printf("\n");
+		j++;
 	}
 }

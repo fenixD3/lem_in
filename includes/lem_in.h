@@ -56,8 +56,12 @@ void	print_ways(t_grp *grp);
 void	print_seted_way_number(t_room *room);
 void	print_rooms_with_depth_and_way(t_room *room, t_room *this_room);
 void	print_links(t_grp *grp, t_room *room, char wich_node, char rule);
-void print_links_node_by_name(char *name, t_room *room, int need_all);
+void	print_links_node_by_name(char *name, t_room *room, int need_all);
+void	print_table_of_num_steps_by_len_one_way(int num_ways, int num_ants);
+void	print_sqr_arr(int** arrarr, int y, int x);
 
 void	make_names_aroud_start_end_better(t_grp *grp);
+int		**make_arr_of_num_steps_by_len_one_way(int num_ways, int num_ants);
+void	print_arr_of_combinations(int way1, int way2, int num_ants);
 
 #endif
