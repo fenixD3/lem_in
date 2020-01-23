@@ -4,7 +4,7 @@
 
 #include "readfile.h"
 #include "libft.h"
-#include "../includes/lem_in.h"
+#include "lem_in.h"
 
 
 #include <fcntl.h>
@@ -16,7 +16,7 @@ void making_lists(t_grp *grp)
 
 	///////////
 	int fd;
-	if ((fd = open("/Users/mdeanne/lem_in/cmake-build-debug/test_big_s", O_RDONLY)) < 0)
+	if ((fd = open("/Users/mdeanne/lem_in/Maps/test2", O_RDONLY)) < 0)
 		go_exit(3);
 
 

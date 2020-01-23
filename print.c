@@ -37,8 +37,8 @@ void print_links(t_grp *grp, t_room *room, char wich_node, char rule)
 	}
 	else if (wich_node == 'e')
 	{
-		printf("End node: ");
-		link = grp->start->link;
+		printf("End node:   ");
+		link = grp->end->link;
 	}
 	else
 	{
@@ -108,18 +108,23 @@ void	print_way(t_room *room, t_grp *grp)
 {
 	int way_num = room->way_number;
 	t_link	*link;
+	t_room	*prev;
 	int i = 0;
 
 	link = room->link;
+	prev = room;
 	printf("Way: %d\n%s <- ", room->way_number,grp->end->name);
 	while (link->room != grp->start)
 	{
+		if (i == 26)
+			i = i;
+
 
 		printf("%s:%d <- ", room->name, room->depth);
 		i++;
 		while (link)
 		{
-			if ((link->room->way_number == way_num && room->depth - link->room->depth == 1) || link->room == grp->start)
+			if ((link->room->way_number == way_num && link->room != prev) || link->room == grp->start)
 				break ;
 			link = link->next;
 		}
@@ -136,10 +141,11 @@ void	print_way(t_room *room, t_grp *grp)
 			printf("Nodes: %d\n", i);
 			return ;
 		}
+		prev = room;
 		room = link->room;
 		link = room->link;
 	}
-	printf("\nNodes: %d\n", i);
+	printf("%s\nNodes: %d\n", link->room->name, i);
 }
 
 void	print_ways(t_grp *grp)
@@ -201,80 +207,7 @@ void	make_names_aroud_start_end_better(t_grp *grp)
 	}
 }
 
-
-void	print_table_of_num_steps_by_len_one_way(int num_ways, int num_ants)
-{
-	int line = 0;
-	int i = 0;
-	int j = 0;
-
-	printf("\n\nlen | ants\n");
-	printf(" \t|\t");
-	while (i++ < num_ants)
-		printf("%d\t", i + line);
-	printf("\n____________________________________________________________________\n");
-	while (j++ < num_ways)
-	{
-		i = 0;
-		printf("%d\t|\t", 2 + line);
-		while (i++ < num_ants)
-		{
-			printf("%d\t", i + line);
-		}
-		printf("\n");
-		line++;
-	}
-}
-
-void	print_sqr_arr(int** arrarr, int y, int x)
-{
-	int i = 0;
-	int j = 0;
-
-	printf("\n");
-	while (j < y)
-	{
-		i = 0;
-		printf("%d\t|\t", arrarr[j][i]);
-		while (i++ < x)
-		{
-			printf("%d\t", arrarr[j][i]);
-		}
-		printf("\n");
-		j++;
-	}
-}
-
-int		**make_arr_of_num_steps_by_len_one_way(int num_ways, int num_ants)
-{
-	int **arrarr;
-	int line = 0;
-	int i = 0;
-	int j = 0;
-
-	arrarr = (int**)ml_malloc(sizeof(int*) * num_ways);
-	while (i < num_ways)
-	{
-		arrarr[i] = (int*)ml_malloc(sizeof(int) * (num_ants + 1));
-		i++;
-	}
-
-	while (j < num_ways)
-	{
-		i = 0;
-		arrarr[j][i] = 2 + line;
-		while (i++ < num_ants)
-		{
-			arrarr[j][i] = i + line;
-		}
-		j++;
-		line++;
-	}
-	return (arrarr);
-}
-
-
-void    print_arr_of_combinations(int way1, int way2, int num_ants)
+void    print_arr_of_combinations(int len_way1, int len_way2, int num_ants)
 {
 	int i = 0;
 	int j = 0;
@@ -283,14 +216,14 @@ void    print_arr_of_combinations(int way1, int way2, int num_ants)
 
 
 	j = 0;
-	while (j < way2 * 2)
+	while (j < len_way2 * 2)
 	{
 	    i = 0;
         printf("%d\t|\t", j);
 		while (i++ < num_ants)
 		{
-		    tmp1 = way1 - 1 + i - j - 1;
-		    tmp2 = way2 - 1 + i - 1;
+		    tmp1 = len_way1 - 1 + i - j - 1;
+		    tmp2 = len_way2 - 1 + i - 1;
             printf("%d\t", (tmp1 > tmp2) ? tmp1 : tmp2);
 		}
 	    printf("\n");

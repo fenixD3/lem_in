@@ -14,8 +14,6 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 	if (room == grp->end)
 		way_num++;
 	link = room->link;
-
-	int i = 0;
 	while (1)
 	{
 		if (link->room->way_number == 0 && room->depth - link->room->depth == 1)
@@ -28,11 +26,50 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 				return(way_num);
 		}
 		link = link->next;
-		i++;
 		if (!link)
 		{
 			room->way_number = 0;
 			return (0);
 		}
+	}
+}
+
+void clear_nonwayed_nodes_depth(t_room *room)
+{
+	while (room)
+	{
+		if (!room->way_number)
+			room->depth = 0;
+		room = room->next;
+	}
+}
+
+void	 marking_list(t_grp *grp)
+{
+	while (set_and_go_back(grp->end, grp))
+		;
+	clear_nonwayed_nodes_depth(grp->room);
+}
+
+void	set_start_depth(t_grp *grp)
+{
+	t_link *l_start;
+	t_link *l_end;
+
+	l_start = grp->start->link;
+	while (l_start)
+	{
+		while (l_start && !l_start->room->way_number)
+			l_start = l_start->next;
+		if (!l_start)
+			return ;
+		l_end = grp->end->link;
+		while (/*l_end && */l_end->room->way_number != l_start->room->way_number)
+		{
+			//if (l_end->room->way_number
+			l_end = l_end->next;
+		}
+		l_start->room->depth = l_end->room->depth + 1;
+		l_start = l_start->next;
 	}
 }

@@ -74,15 +74,11 @@ int		moon(t_grp *grp)
 void 	finding_ways(t_grp *grp)
 {
 	t_room *room;
-	int tmp = 0;
 
 	room = grp->start;
 	room->depth = 0;
 
 	while (moon(grp)) /// нужен контроль количестьва нагененрированных путей
-	{
-		while (set_and_go_back(grp->end, grp))
-			;
-		clear_nonwayed_nodes_depth(grp->room);
-	}
+        marking_list(grp);
+	set_start_depth(grp);
 }
