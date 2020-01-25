@@ -40,7 +40,7 @@ int wave(t_room *room, t_room *prev, int depth, t_grp *grp)
 	link = room->link;
 	while (link)
 	{
-		if (link->room != prev && depth >= link->room->depth && link->room->depth > room->depth && link->room->way_number == 0)
+		if (link->room != prev && depth >= link->room->depth && link->room->depth > room->depth && link->room->way_nu == 0)
 			wave(link->room, room, depth, grp);
 		link = link->next;
 	}

@@ -3,7 +3,9 @@
 //
 
 #include "includes/lem_in.h"
+
 #include <stdio.h>
+#include <ways_and_ants.h>
 
 
 void 	print_rooms(t_room *room)
@@ -48,9 +50,9 @@ void print_links(t_grp *grp, t_room *room, char wich_node, char rule)
 	printf("name:depth:way_number  ");
 	while (link)
 	{
-		if (rule == 'a' || link->room->way_number)
+		if (rule == 'a' || link->room->way_nu)
 		{
-			printf("%s:%d:%d  ", link->room->name, link->room->depth,link->room->way_number);
+			printf("%s:%d:%d  ", link->room->name, link->room->depth,link->room->way_nu);
 			j++;
 		}
 		link = link->next;
@@ -88,8 +90,8 @@ void print_rooms_with_depth_and_way(t_room *room, t_room *this_room)
 	while (room)
 	{
 		printf("%s\t%d\t", room->name, room->depth);
-		if (room->way_number)
-			printf("%d  ", room->way_number);
+		if (room->way_nu)
+			printf("%d  ", room->way_nu);
 		else
 			printf("   ");
 		if (this_room && this_room == room)
@@ -106,14 +108,14 @@ void print_rooms_with_depth_and_way(t_room *room, t_room *this_room)
 
 void	print_way(t_room *room, t_grp *grp)
 {
-	int way_num = room->way_number;
+	int way_num = room->way_nu;
 	t_link	*link;
 	t_room	*prev;
 	int i = 0;
 
 	link = room->link;
 	prev = room;
-	printf("Way: %d\n%s <- ", room->way_number,grp->end->name);
+	printf("Way: %d\n%s <- ", room->way_nu, grp->end->name);
 	while (link->room != grp->start)
 	{
 		if (i == 26)
@@ -124,7 +126,7 @@ void	print_way(t_room *room, t_grp *grp)
 		i++;
 		while (link)
 		{
-			if ((link->room->way_number == way_num && link->room != prev) || link->room == grp->start)
+			if ((link->room->way_nu == way_num && link->room != prev) || link->room == grp->start)
 				break ;
 			link = link->next;
 		}
@@ -158,7 +160,7 @@ void	print_ways(t_grp *grp)
 	while (link)
 	{
 
-		if (link->room->way_number)
+		if (link->room->way_nu)
 		{
 			printf("------------\n");
 			print_way(link->room, grp);
@@ -174,8 +176,8 @@ void	print_seted_way_number(t_room *room)
 	link = room->link;
 	while (link)
 	{
-		if (link->room->way_number)
-			printf("%d ", link->room->way_number);
+		if (link->room->way_nu)
+			printf("%d ", link->room->way_nu);
 		else
 			printf("-");
 		link = link->next;
@@ -229,4 +231,29 @@ void    print_arr_of_combinations(int len_way1, int len_way2, int num_ants)
 	    printf("\n");
 		j++;
 	}
+}
+
+void print_ants_ways(t_way *way, int ants, int clear)
+{
+	printf("\nPrint for %d\nway_nu : depth : ants\n", ants);
+	while (way)
+	{
+		printf("%d\t%d\t%d\n", way->room->way_nu, way->room->depth, way->ants);
+		if (clear)
+		{
+			way->ants = 0;
+			way->open = 0;
+		}
+		way = way->next;
+	}
+}
+
+void	print_ants(t_ant *ant)
+{
+	while (ant)
+	{
+		printf("%d %s\n", ant->number, ant->room->name);
+		ant = ant->next;
+	}
+	printf("------------------\n");
 }

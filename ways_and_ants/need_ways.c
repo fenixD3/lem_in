@@ -15,14 +15,14 @@ int		which_ways(t_grp *grp, int *max)
 	link = grp->start->link;
 	while(link)
 	{
-		if (!link->room->way_number)
+		if (!link->room->way_nu)
 			start_ways++;
 		link = link->next;
 	}
 	link = grp->end->link;
 	while(link)
 	{
-		if (!link->room->way_number)
+		if (!link->room->way_nu)
 			end_ways++;
 		link = link->next;
 	}

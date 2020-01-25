@@ -16,10 +16,10 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 	link = room->link;
 	while (1)
 	{
-		if (link->room->way_number == 0 && room->depth - link->room->depth == 1)
+		if (link->room->way_nu == 0 && room->depth - link->room->depth == 1)
 		{
 			if (link->room != grp->start)
-				link->room->way_number = way_num;
+				link->room->way_nu = way_num;
 			else
 				return(way_num);
 			if (set_and_go_back(link->room, grp))
@@ -28,7 +28,7 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 		link = link->next;
 		if (!link)
 		{
-			room->way_number = 0;
+			room->way_nu = 0;
 			return (0);
 		}
 	}
@@ -38,7 +38,7 @@ void clear_nonwayed_nodes_depth(t_room *room)
 {
 	while (room)
 	{
-		if (!room->way_number)
+		if (!room->way_nu)
 			room->depth = 0;
 		room = room->next;
 	}
@@ -59,12 +59,12 @@ void	set_start_depth(t_grp *grp)
 	l_start = grp->start->link;
 	while (l_start)
 	{
-		while (l_start && !l_start->room->way_number)
+		while (l_start && !l_start->room->way_nu)
 			l_start = l_start->next;
 		if (!l_start)
 			return ;
 		l_end = grp->end->link;
-		while (/*l_end && */l_end->room->way_number != l_start->room->way_number)
+		while (/*l_end && */l_end->room->way_nu != l_start->room->way_nu)
 		{
 			//if (l_end->room->way_number
 			l_end = l_end->next;

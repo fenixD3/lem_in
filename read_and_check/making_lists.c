@@ -10,13 +10,13 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-void making_lists(t_grp *grp)
+int		making_lists(t_grp *grp)
 {
 	t_fline	*fileline;
 
 	///////////
 	int fd;
-	if ((fd = open("/Users/mdeanne/lem_in/Maps/test2", O_RDONLY)) < 0)
+	if ((fd = open("/Users/mdeanne/lem_in/Maps/test_sub", O_RDONLY)) < 0)
 		go_exit(3);
 
 
@@ -24,7 +24,7 @@ void making_lists(t_grp *grp)
 
 	fileline = read_and_save_file(fd);
 	grp->room = making_rooms_and_links(fileline, grp);
-
+	return (ft_atoi(fileline->line));
 }
 
 

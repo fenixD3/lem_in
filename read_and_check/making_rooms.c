@@ -14,7 +14,7 @@ void push_room(t_room **head, char *line)
 	new->next = NULL;
 	new->link = NULL;
 	new->depth = 0;
-	new->way_number = 0;
+	new->way_nu = 0;
 	if (*head)
 		new->next = *head;
 	new->name = line;

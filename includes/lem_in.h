@@ -12,8 +12,10 @@
 
 #ifndef LEM_IN_H
 #define LEM_IN_H
+
 #include "libft.h"
 #include "../read_and_check/readfile.h"
+
 
 
 typedef struct	s_room
@@ -24,7 +26,7 @@ typedef struct	s_room
 	struct s_link	*link;
 	struct s_room	*next;
 	int 			depth;
-	int 			way_number;
+	int 			way_nu;
 }				t_room;
 
 typedef struct	s_link
@@ -41,13 +43,15 @@ typedef struct	s_group
 
 }				t_grp;
 
-void making_lists(t_grp *grp);
+
+int making_lists(t_grp *grp);
 t_room *making_rooms_and_links(t_fline *head, t_grp *grp);
 
 void 	finding_ways(t_grp *grp);
 void    marking_list(t_grp *grp);
 void    set_start_depth(t_grp *grp);
 void	clear_nonwayed_nodes_depth(t_room *room);
+
 
 
 ///
