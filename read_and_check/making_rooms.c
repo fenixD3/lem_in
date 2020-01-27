@@ -9,16 +9,18 @@ void push_room(t_room **head, char *line)
 {
 	t_room	*new;
 	char 	*tmp;
+	char 	*new_line;
 
 	new = (t_room*)ml_malloc(sizeof(t_room));
+	new_line = ft_strdup(line);
 	new->next = NULL;
 	new->link = NULL;
 	new->depth = 0;
 	new->way_nu = 0;
 	if (*head)
 		new->next = *head;
-	new->name = line;
-	tmp =  ft_strchr(line, ' ');
+	new->name = new_line;
+	tmp =  ft_strchr(new_line, ' ');
 	new->x = ft_atoi(tmp);
 	*tmp = '\0';
 	tmp++;
@@ -83,9 +85,9 @@ int		which_type_of_line(char *line)
 		else if (!ft_strcmp(line + 1, "#end"))
 			return (2);
 	}
-	else if (ft_strchr(line, ' '))
+	else if (ft_strchr(line, ' ') && check_room(line)) // check_room
 		return (3);
-	else if (ft_strchr(line, '-'))
+	else if (ft_strchr(line, '-')) // check_link
 		return (4);
 	return (-1);
 }
@@ -130,13 +132,14 @@ t_room *making_rooms_and_links(t_fline *lst, t_grp *grp)
 		if ((tmp = which_type_of_line(head->line)) == 1 || tmp == 2)
 		{
 			head = head->next;
+			check_room(head->line);
 			push_room(&room, head->line);
 			if (tmp == 1)
 				grp->start = room;
 			else
 				grp->end = room;
 		}
-		else if ((tmp = which_type_of_line(head->line)) == 3)
+		else if (tmp == 3)
 			push_room(&room, head->line);
 		head = head->next;
 	}

@@ -13,16 +13,22 @@
 int		making_lists(t_grp *grp)
 {
 	t_fline	*fileline;
+	t_fline *tmp;
 
 	///////////
-	int fd;
-	if ((fd = open("/Users/mdeanne/lem_in/Maps/test_sub", O_RDONLY)) < 0)
+	int fd = 0;
+	if ((fd = open("/Users/mdeanne/lem_in/test0", O_RDONLY)) < 0)
 		go_exit(3);
-
-
 	///////////
 
 	fileline = read_and_save_file(fd);
+	tmp = fileline;
+	while (tmp)
+	{
+		printf("%s\n", tmp->line);
+		tmp = tmp->next;
+	}
+	printf("\n");
 	grp->room = making_rooms_and_links(fileline, grp);
 	return (ft_atoi(fileline->line));
 }

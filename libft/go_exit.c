@@ -21,5 +21,7 @@ void	go_exit(int ko)
 		ft_putendl("ERROR");
 	else if (ko == 3)
 		ft_putendl("ERROR: in read_and_check file");
+	else if (ko == 4)
+		ft_putendl("ERROR: file contains invalid room");
 	exit(1);
 }

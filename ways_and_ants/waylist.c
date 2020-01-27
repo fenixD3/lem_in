@@ -41,8 +41,9 @@ t_way *make_way_list(t_link *link, int max_way_num)
 			}
 			l_way = l_way->next;
 		}
-		if (head && head->room->way_nu <= max_way->way_nu)
+		if (!max_way_num || (head && head->room->way_nu <= max_way->way_nu))
 			break ;
+		//if (max_way->way_nu)
 		push_way(&head, max_way);
 	}
 	return (head);

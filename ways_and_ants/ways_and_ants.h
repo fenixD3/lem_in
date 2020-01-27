@@ -23,7 +23,8 @@ typedef struct	s_ant
 	struct s_ant	*next;
 }				t_ant;
 
+void			push_way(t_way **head, t_room *room);
 t_way			*make_way_list(t_link *link, int max_way_num);
-t_way			*count_ants_for_way(t_link *link, int ants);
+t_way			*count_ants_for_way(t_link *link, t_grp *grp, int ants);
 
 #endif

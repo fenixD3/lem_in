@@ -70,8 +70,21 @@ int		moon(t_grp *grp)
 		return (0);
 }
 
+int		is_one_step_way(t_grp *grp)
+{
+	t_link *link;
 
-void 	finding_ways(t_grp *grp)
+	link = grp->start->link;
+	while (link)
+	{
+		if (link->room == grp->end)
+			return (1);
+		link = link->next;
+	}
+	return (0);
+}
+
+int finding_ways(t_grp *grp)
 {
 	t_room *room;
 

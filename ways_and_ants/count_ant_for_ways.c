@@ -4,8 +4,6 @@
 
 #include "ways_and_ants.h"
 
-void print_ants_ways(t_way *way, int ants, int clear);
-
 static void add_ant_in_way(t_way *way, int *ants)
 {
 	way->ants++;
@@ -29,11 +27,19 @@ static _Bool	if_can_open_next_way_and_add_ant(t_way **way, int *ants)
 	return (0);
 }
 
-t_way *count_ants_for_way(t_link *link, int ants)
+t_way *count_ants_for_way(t_link *link, t_grp *grp, int ants)
 {
 	t_way *ways;
 	t_way *tmp;
 
+	ways = NULL;
+	if (is_one_step_way(grp))
+	{
+		push_way(&ways, grp->end);
+		ways->open = 1;
+		ways->ants = ants;
+		return (ways);
+	}
 	ways = make_way_list(link, 0);
 	ways->open = 1;
 	while (ants)
