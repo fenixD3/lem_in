@@ -12,7 +12,10 @@ static void		ml_static_list(void *ptr, int rule)
 	if (rule == ML_MALLOC)
 	{
 		if (!ml_push_front(&head, ml_create(ptr)))
-			go_exit(1);
+		{
+			ft_putendl("ERROR: can't alloc memory");
+			exit(1);
+		}
 	}
 	else if (rule == ML_DELELEM)
 		ml_delelem(&head, ptr);

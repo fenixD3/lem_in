@@ -84,7 +84,7 @@ int		is_one_step_way(t_grp *grp)
 	return (0);
 }
 
-int finding_ways(t_grp *grp)
+void	finding_ways(t_grp *grp)
 {
 	t_room *room;
 

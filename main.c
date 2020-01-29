@@ -18,6 +18,7 @@ int main(void)
 {
 	t_grp grp;
 	t_way *ways;
+	t_fline *flist;
 	int 	ants;
 
 	grp.room = NULL;
@@ -29,7 +30,7 @@ int main(void)
 	//start = clock();
 	/////
 
-	ants = making_lists(&grp);
+	flist = making_lists(&grp, &ants);
 //////////////////////////
 	//maked_list = clock();
 ///////////////////////
@@ -49,7 +50,7 @@ int main(void)
 /*	print_ways(&grp);
 	print_links(&grp, NULL, 's', 0);
 	print_links(&grp, NULL, 'e', 0);*/
-
+	///// прповерить наличие путей и выйти если что не так
 	ways = count_ants_for_way(grp.start->link, &grp, ants);
 	put_ants_steps(ways, &grp);
 /*	int num_ants = 20;

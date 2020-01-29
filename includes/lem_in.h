@@ -43,11 +43,16 @@ typedef struct	s_group
 
 }				t_grp;
 
+void	push_room(t_room **head, char *line);
+void	add_links(t_room *head, char *line);
 
-int making_lists(t_grp *grp);
-t_room *making_rooms_and_links(t_fline *head, t_grp *grp);
 
-int finding_ways(t_grp *grp);
+void	go_exit(int ko, char *error);
+
+t_fline * making_lists(t_grp *grp, int *ants);
+t_room	*making_rooms_and_links(t_fline *head, t_grp *grp);
+
+void finding_ways(t_grp *grp);
 void    marking_list(t_grp *grp);
 void    set_start_depth(t_grp *grp);
 void	clear_nonwayed_nodes_depth(t_room *room);
@@ -57,7 +62,8 @@ int		is_one_step_way(t_grp *grp);
 ** check
 */
 
-int check_room(char *line);
+int type_of_line(char *line);
+int check_valid_line(char *line);
 
 ///
 void 	print_rooms(t_room *room);
