@@ -47,7 +47,7 @@ void	find_rooms(t_room **room1, t_room **room2, char *name)
 			*name2 = '\0';
 	}
 	if (!*room1 || !*room2)
-		go_exit(13, "ERROR: file has link to non-existent room");
+		go_exit("ERROR: file has link to non-existent room");
 }
 
 void	add_links(t_room *head, char *line)
@@ -72,4 +72,15 @@ void	add_links(t_room *head, char *line)
 		new2->next = room2->link;
 	room1->link = new1;
 	room2->link = new2;
+}
+
+_Bool	check_ways(t_link *link)
+{
+	while (link)
+	{
+		if (link->room->way_nu)
+			return (1);
+		link = link->next;
+	}
+	return (0);
 }

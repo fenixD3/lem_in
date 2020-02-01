@@ -18,18 +18,18 @@ t_fline		*making_lists(t_grp *grp, int *ants)
 	///////////
 	int fd = 0;
 	if ((fd = open("/Users/mdeanne/lem_in/test0", O_RDONLY)) < 0)
-		go_exit(3, NULL);
+		go_exit("ERROR: in read_and_check file");
 	///////////
 
 	fileline = read_and_save_file(fd);
 
 	grp->room = making_rooms_and_links(fileline, grp);
 	if (!grp->start && !grp->end)
-		go_exit(11, "ERROR: file doesn't contain ##start and ##end nodes");
+		go_exit("ERROR: file doesn't contain ##start and ##end nodes");
 	if (!grp->start)
-		go_exit(11, "ERROR: file doesn't contain ##start node");
+		go_exit("ERROR: file doesn't contain ##start node");
 	if (!grp->end)
-		go_exit(11, "ERROR: file doesn't contain ##end node");
+		go_exit("ERROR: file doesn't contain ##end node");
 	tmp = fileline;
 	while (tmp->line[0] == '#')
 		tmp = tmp->next;

@@ -14,12 +14,12 @@ int check_room(char *line, int type, int *flag)
 	if (type == 1 || type == 2)
 		return (3);
 	else if (type != 3)
-		go_exit(9, "ERROR: wrong order in file");
+		go_exit("ERROR: wrong order in file");
 	if (*flag == 1)
 		(*flag)++;
 	i = 0;
 	if ((tmp = ft_strchr(line, ' ')) < ft_strchr(line, '-'))
-		go_exit(5, "ERROR: room name contains '-'");
+		go_exit("ERROR: room name contains '-'");
 	while (*tmp)
 	{
 		i++;
@@ -27,10 +27,10 @@ int check_room(char *line, int type, int *flag)
 		while (*tmp && ft_isdigit(*tmp))
 			tmp++;
 		if ((*tmp != ' ' || !*tmp) && i > 2)
-			go_exit(4, "ERROR: file contains invalid room");
+			go_exit("ERROR: file contains invalid room");
 	}
 	if (i != 2)
-		go_exit(4, "ERROR: file contains invalid room");
+		go_exit("ERROR: file contains invalid room");
 	return (3);
 }
 
@@ -42,7 +42,7 @@ int check_link(char *line, int *flag)
 		(*flag)++;
 	tmp = ft_strchr(line, '-') + 1;
 	if (ft_strchr(tmp, '-'))
-		go_exit(5, "ERROR: in link room name contains '-'");
+		go_exit("ERROR: in link room name contains '-'");
 	while (*tmp && *line != '-')
 	{
 		if (*tmp != *line)
@@ -51,18 +51,18 @@ int check_link(char *line, int *flag)
 		line++;
 	}
 	if (!*tmp && *line == '-')
-		go_exit(8, "ERROR: link has identical rooms");
+		go_exit("ERROR: link has identical rooms");
 	return (4);
 }
 
 int check_ants(char *line, int type)
 {
 	if (type != 5)
-		go_exit(9, "ERROR: wrong order in file");
+		go_exit("ERROR: wrong order in file");
 	while (*line)
 	{
 		if (!ft_isdigit(*line))
-			go_exit(6, "ERROR: invalid ants representation");
+			go_exit("ERROR: invalid ants representation");
 		line++;
 	}
 	return (5);
@@ -105,10 +105,10 @@ int check_valid_line(char *line)
 	else if (flag == 1 || flag == 2)
 		check_room(line, type, &flag);
 	else if (flag == 3 && type != 4)
-		go_exit(9, "ERROR: wrong order in file");
+		go_exit("ERROR: wrong order in file");
 	else if (flag == 3)
 		check_link(line, NULL);
 	else
-		go_exit(10, "ERROR: file not contains rooms");
+		go_exit("ERROR: file not contains rooms");
 	return (flag);
 }

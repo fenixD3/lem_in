@@ -6,7 +6,7 @@
 /*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 17:27:04 by mdeanne           #+#    #+#             */
-/*   Updated: 2020/01/11 17:27:06 by mdeanne          ###   ########.fr       */
+/*   Updated: 2020/01/31 21:02:08 by yas              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	push_room(t_room **head, char *line);
 void	add_links(t_room *head, char *line);
 
 
-void	go_exit(int ko, char *error);
+void go_exit(char *error);
 
 t_fline * making_lists(t_grp *grp, int *ants);
 t_room	*making_rooms_and_links(t_fline *head, t_grp *grp);
@@ -64,6 +64,7 @@ int		is_one_step_way(t_grp *grp);
 
 int type_of_line(char *line);
 int check_valid_line(char *line);
+_Bool	check_ways(t_link *link);
 
 ///
 void 	print_rooms(t_room *room);

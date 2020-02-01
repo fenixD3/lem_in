@@ -12,7 +12,7 @@ void add_line_lst(t_fline **head, t_fline **tail, char *line)
 	t_fline *new;
 
 	if (!(new = (t_fline*)ml_malloc(sizeof(t_fline))))
-		go_exit(1, NULL);
+		go_exit("ERROR: can't alloc memory");
 	new->next = NULL;
 	if (!*head)
 		*head = new;
@@ -40,12 +40,12 @@ t_fline *read_and_save_file(int fd)
 			if (flag == 3)
 				break ;
 			if (get_next_line(fd, &line) > 0)
-				go_exit(12, "ERROR: file contains newline break");
+				go_exit("ERROR: file contains newline break");
 		}
 		flag = check_valid_line(line);
 		add_line_lst(&head, &tail, line);
 	}
 	if (flag != 3)
-		go_exit(11, "ERROR: not complete file");
+		go_exit("ERROR: not complete file");
 	return (head);
 }
