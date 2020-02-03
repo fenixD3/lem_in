@@ -8,14 +8,11 @@
 ////
 #include <time.h>
 #include <stdio.h>
-
-
-void print_ants_ways(t_way *way, int ants, int clear);
 void put_ants_steps(t_way *ways, t_grp *grp); /// Плохо подключалось
 ////
 
 
-int main(void)
+int main(int ac, char **av)
 {
 	t_grp grp;
 	t_way *ways;
@@ -42,6 +39,5 @@ int main(void)
 	}
 	ft_putchar('\n');
 	put_ants_steps(ways, &grp);
-
 	exit(0);
 }

@@ -155,3 +155,21 @@ _Bool	put_ants_statuses(t_ant *ant)
 	printf("\n");
 	return (1);
 }
+
+void put_ants_steps(t_way *ways, t_grp *grp)
+{
+	t_ant *head;
+	int i;
+
+	if (ways->room == grp->end) {
+		i = 1;
+		while (ways->ants-- > 1)
+			printf("L%d-%s ", i++, grp->end->name);
+		printf("L%d-%s", i, grp->end->name);
+		return;
+	}
+	head = NULL;
+	push_ants(&head, ways, grp);
+	while (put_ants_statuses(head))
+		push_ants(&head, ways, grp);
+}

@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include "../../mdeanne2/includes/ft_stack.h"
-#include "../../mdeanne2/includes/checker.h"
 
 void go_exit(char *error)
 {

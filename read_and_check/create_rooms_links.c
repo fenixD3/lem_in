@@ -32,7 +32,11 @@ void	push_room(t_room **head, char *line)
 void	find_rooms(t_room **room1, t_room **room2, char *name)
 {
 	char *name2;
+	char *tmp;
 
+	if (!(tmp = (char*)malloc(sizeof(char) * (ft_strlen(name) + 1))))
+		go_exit("ERROR: Can't alloc memory");
+	name = ft_strcpy(tmp, name);
 	name2 = ft_strchr(name, '-') + 1;
 	*(name2 - 1) = '\0';
 	while (*name || *name2)
@@ -48,6 +52,7 @@ void	find_rooms(t_room **room1, t_room **room2, char *name)
 	}
 	if (!*room1 || !*room2)
 		go_exit("ERROR: file has link to non-existent room");
+	free(tmp);
 }
 
 void	add_links(t_room *head, char *line)
