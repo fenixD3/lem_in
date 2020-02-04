@@ -1,14 +1,20 @@
-//
-// Created by Mort Deanne on 11/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   making_lists.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:27:16 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:27:18 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "readfile.h"
 #include "libft.h"
 #include "lem_in.h"
 
-
 #include <fcntl.h>
-#include <stdio.h>
 
 t_fline		*making_lists(t_grp *grp, int *ants)
 {
@@ -20,9 +26,7 @@ t_fline		*making_lists(t_grp *grp, int *ants)
 	if ((fd = open("/Users/mdeanne/lem_in/test0", O_RDONLY)) < 0)
 		go_exit("ERROR: in read_and_check file");
 	///////////
-
 	fileline = read_and_save_file(fd);
-
 	grp->room = making_rooms_and_links(fileline, grp);
 	if (!grp->start && !grp->end)
 		go_exit("ERROR: file doesn't contain ##start and ##end nodes");
@@ -36,5 +40,3 @@ t_fline		*making_lists(t_grp *grp, int *ants)
 	*ants = ft_atoi(tmp->line);
 	return (fileline);
 }
-
-

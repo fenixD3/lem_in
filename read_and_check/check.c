@@ -1,12 +1,19 @@
-//
-// Created by Mort Deanne on 27/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:26:59 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:27:05 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <libft.h>
 #include <lem_in.h>
 
-
-int check_room(char *line, int type, int *flag)
+int		check_room(char *line, int type, int *flag)
 {
 	char	*tmp;
 	int		i;
@@ -34,7 +41,7 @@ int check_room(char *line, int type, int *flag)
 	return (3);
 }
 
-int check_link(char *line, int *flag)
+int		check_link(char *line, int *flag)
 {
 	char *tmp;
 
@@ -55,7 +62,7 @@ int check_link(char *line, int *flag)
 	return (4);
 }
 
-int check_ants(char *line, int type)
+int		check_ants(char *line, int type)
 {
 	if (type != 5)
 		go_exit("ERROR: wrong order in file");
@@ -68,7 +75,7 @@ int check_ants(char *line, int type)
 	return (5);
 }
 
-int type_of_line(char *line)
+int		type_of_line(char *line)
 {
 	if (line[0] == '#')
 	{
@@ -88,10 +95,10 @@ int type_of_line(char *line)
 	return (-1);
 }
 
-int check_valid_line(char *line)
+int		check_valid_line(char *line)
 {
-	static int 	flag;
-	int 		type;
+	static int	flag;
+	int			type;
 
 	if (!(type = type_of_line(line)))
 		return (flag);

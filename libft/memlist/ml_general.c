@@ -1,6 +1,14 @@
-//
-// Created by Mort Deanne on 11/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ml_general.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 19:16:31 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 19:16:33 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "blackbox_memlist.h"
 #include "libft.h"
@@ -30,7 +38,7 @@ void			*ml_malloc(size_t size)
 	if (!(data = malloc(size)))
 	{
 		ml_static_list(NULL, ML_CLEARLIST);
-		return NULL;
+		return (NULL);
 	}
 	ml_static_list(data, ML_MALLOC);
 	return (data);

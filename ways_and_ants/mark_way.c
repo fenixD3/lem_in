@@ -1,8 +1,14 @@
-//
-// Created by Mort Deanne on 16/01/2020.
-//
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mark_way.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:28:22 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:28:23 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
@@ -21,9 +27,9 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 			if (link->room != grp->start)
 				link->room->way_nu = way_num;
 			else
-				return(way_num);
+				return (way_num);
 			if (set_and_go_back(link->room, grp))
-				return(way_num);
+				return (way_num);
 		}
 		link = link->next;
 		if (!link)
@@ -34,7 +40,7 @@ int		set_and_go_back(t_room *room, t_grp *grp)
 	}
 }
 
-void clear_nonwayed_nodes_depth(t_room *room)
+void	clear_nonwayed_nodes_depth(t_room *room)
 {
 	while (room)
 	{
@@ -44,7 +50,7 @@ void clear_nonwayed_nodes_depth(t_room *room)
 	}
 }
 
-void	 marking_list(t_grp *grp)
+void	marking_list(t_grp *grp)
 {
 	while (set_and_go_back(grp->end, grp))
 		;
@@ -64,11 +70,8 @@ void	set_start_depth(t_grp *grp)
 		if (!l_start)
 			return ;
 		l_end = grp->end->link;
-		while (/*l_end && */l_end->room->way_nu != l_start->room->way_nu)
-		{
-			//if (l_end->room->way_number
+		while (l_end->room->way_nu != l_start->room->way_nu)
 			l_end = l_end->next;
-		}
 		l_start->room->depth = l_end->room->depth + 1;
 		l_start = l_start->next;
 	}

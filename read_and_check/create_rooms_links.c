@@ -1,6 +1,14 @@
-//
-// Created by Mort Deanne on 29/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_rooms_links.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:27:10 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:27:12 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <libft.h>
 #include <lem_in.h>
@@ -8,8 +16,8 @@
 void	push_room(t_room **head, char *line)
 {
 	t_room	*new;
-	char 	*tmp;
-	char 	*new_line;
+	char	*tmp;
+	char	*new_line;
 
 	new = (t_room*)ml_malloc(sizeof(t_room));
 	new_line = ft_strdup(line);
@@ -20,11 +28,11 @@ void	push_room(t_room **head, char *line)
 	if (*head)
 		new->next = *head;
 	new->name = new_line;
-	tmp =  ft_strchr(new_line, ' ');
+	tmp = ft_strchr(new_line, ' ');
 	new->x = ft_atoi(tmp);
 	*tmp = '\0';
 	tmp++;
-	tmp =  ft_strchr(tmp, ' ');
+	tmp = ft_strchr(tmp, ' ');
 	new->y = ft_atoi(tmp);
 	*head = new;
 }

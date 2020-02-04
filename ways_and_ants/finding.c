@@ -1,6 +1,14 @@
-//
-// Created by Mort Deanne on 14/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   finding.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:28:14 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:28:16 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
@@ -9,7 +17,7 @@
 int		set_depth(t_room *room, t_grp *grp)
 {
 	t_link	*link;
-	int 	setted;
+	int		setted;
 
 	link = room->link;
 	setted = 0;
@@ -26,11 +34,11 @@ int		set_depth(t_room *room, t_grp *grp)
 	return (setted);
 }
 
-int wave(t_room *room, t_room *prev, int depth, t_grp *grp)
+int		wave(t_room *room, t_room *prev, int depth, t_grp *grp)
 {
 	t_link		*link;
 	static int	setted;
-	int 		tmp;
+	int			tmp;
 
 	if (room->depth == 0)
 		setted = 0;
@@ -40,7 +48,8 @@ int wave(t_room *room, t_room *prev, int depth, t_grp *grp)
 	link = room->link;
 	while (link)
 	{
-		if (link->room != prev && depth >= link->room->depth && link->room->depth > room->depth && link->room->way_nu == 0)
+		if (link->room != prev && depth >= link->room->depth &&
+				link->room->depth > room->depth && link->room->way_nu == 0)
 			wave(link->room, room, depth, grp);
 		link = link->next;
 	}
@@ -90,8 +99,7 @@ void	finding_ways(t_grp *grp)
 
 	room = grp->start;
 	room->depth = 0;
-
-	while (moon(grp)) /// нужен контроль количестьва нагененрированных путей
-        marking_list(grp);
+	while (moon(grp))
+		marking_list(grp);
 	set_start_depth(grp);
 }

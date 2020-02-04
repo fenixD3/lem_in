@@ -1,16 +1,24 @@
-//
-// Created by Mort Deanne on 23/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ways_and_ants.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:28:39 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:28:41 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef WAYS_H
-#define WAYS_H
+#ifndef WAYS_AND_ANTS_H
+# define WAYS_AND_ANTS_H
 
-#include <lem_in.h>
+# include <lem_in.h>
 
 typedef struct	s_way
 {
 	t_room			*room;
-	int			 	ants;
+	int				ants;
 	_Bool			open;
 	struct s_way	*next;
 }				t_way;
@@ -19,7 +27,7 @@ typedef struct	s_ant
 {
 	t_room			*room;
 	t_room			*prev_room;
-	int 			number;
+	int				number;
 	struct s_ant	*next;
 }				t_ant;
 

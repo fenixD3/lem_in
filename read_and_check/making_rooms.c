@@ -1,10 +1,17 @@
-//
-// Created by Mort Deanne on 14/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   making_rooms.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:27:21 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:27:25 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 #include "readfile.h"
-
 
 void	making_links(t_fline *lst, t_room **room)
 {
@@ -21,7 +28,7 @@ void	making_links(t_fline *lst, t_room **room)
 		*room = (*room)->next;
 	prev = *room;
 	if (prev->next)
-		tmp = prev->next; ///  нужно проверить если линки между вершинами (в черкере или здесь)
+		tmp = prev->next;
 	while (tmp)
 	{
 		if (!tmp->link)
@@ -32,7 +39,7 @@ void	making_links(t_fline *lst, t_room **room)
 	}
 }
 
-t_room *making_rooms_and_links(t_fline *lst, t_grp *grp)
+t_room	*making_rooms_and_links(t_fline *lst, t_grp *grp)
 {
 	t_fline *head;
 	t_room	*room;

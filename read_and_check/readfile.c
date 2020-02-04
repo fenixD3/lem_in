@@ -1,13 +1,21 @@
-//
-// Created by Mort Deanne on 14/01/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readfile.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 18:27:33 by mdeanne           #+#    #+#             */
+/*   Updated: 2020/02/04 18:27:36 by mdeanne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <libft.h>
 #include <get_next_line.h>
 #include <lem_in.h>
 #include "readfile.h"
 
-void add_line_lst(t_fline **head, t_fline **tail, char *line)
+void		add_line_lst(t_fline **head, t_fline **tail, char *line)
 {
 	t_fline *new;
 
@@ -22,18 +30,18 @@ void add_line_lst(t_fline **head, t_fline **tail, char *line)
 	*tail = new;
 }
 
-t_fline *read_and_save_file(int fd)
+t_fline		*read_and_save_file(int fd)
 {
 	char	*line;
 	t_fline	*tail;
 	t_fline *head;
-	int 	flag;
+	int		flag;
 
 	tail = NULL;
 	head = NULL;
 	line = NULL;
 	flag = 0;
-	while(get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (!*line)
 		{
