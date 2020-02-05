@@ -16,10 +16,14 @@
 ////
 #include <time.h>
 #include <stdio.h>
+#include <SDL.h>
+#include <SDL2_gfxPrimitives.h>
+
 void put_ants_steps(t_way *ways, t_grp *grp); /// Плохо подключалось
 ////
 
 
+/*
 int		main(int ac, char **av)
 {
 	t_grp	grp;
@@ -48,3 +52,4 @@ int		main(int ac, char **av)
 	put_ants_steps(ways, &grp);
 	exit(0);
 }
+*/
