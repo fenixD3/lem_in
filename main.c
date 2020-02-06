@@ -13,33 +13,29 @@
 #include <stdlib.h>
 #include "includes/lem_in.h"
 #include <ways_and_ants.h>
+#include "vizual/vizual.h"
 ////
 #include <time.h>
 #include <stdio.h>
-#include <SDL.h>
-#include <SDL2_gfxPrimitives.h>
 
 void put_ants_steps(t_way *ways, t_grp *grp); /// Плохо подключалось
 ////
 
-
-/*
 int		main(int ac, char **av)
 {
 	t_grp	grp;
 	t_way	*ways;
 	t_fline	*flist;
 	int		ants;
+	t_viz	vz;
 
 	grp.room = NULL;
 	grp.start = NULL;
 	grp.end = NULL;
-
 	flist = making_lists(&grp, &ants);
-
+	make_vizual(&vz, grp);
 	if (!is_one_step_way(&grp))
 		finding_ways(&grp);
-
 	if (!check_ways(grp.start->link))
 		go_exit("ERROR: there is no way from start to end");
 	ways = count_ants_for_way(grp.start->link, &grp, ants);
@@ -50,6 +46,6 @@ int		main(int ac, char **av)
 	}
 	ft_putchar('\n');
 	put_ants_steps(ways, &grp);
+	quit_viz(&vz);
 	exit(0);
 }
-*/

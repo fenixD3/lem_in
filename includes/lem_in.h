@@ -38,7 +38,6 @@ typedef struct	s_group
 	t_room *start;
 	t_room *end;
 	t_room *room;
-
 }				t_grp;
 
 void			push_room(t_room **head, char *line);

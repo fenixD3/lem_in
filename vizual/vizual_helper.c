@@ -25,11 +25,11 @@ void	viz_error(t_viz *viz)
 	exit(1);
 }
 
-void handle_events(t_viz *viz, _Bool *run)
+void	handle_events(void)
 {
 	SDL_Event	ev;
 
 	SDL_PollEvent(&ev);
 	if (ev.type == SDL_QUIT)
-		*run = 0;
+		;
 }
