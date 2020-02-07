@@ -1217,7 +1217,7 @@ int arcRGBA(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 rad, Sint16 star
 	}
 
 	/*
-	* Special case for rad=0 - draw a point 
+	* Special case for diam=0 - draw a point
 	*/
 	if (rad == 0) {
 		return (pixelRGBA(renderer, x, y, r, g, b, a));
@@ -2095,7 +2095,7 @@ int _pieRGBA(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 rad, Sint16 sta
 	end = end % 360;
 
 	/*
-	* Special case for rad=0 - draw a point 
+	* Special case for diam=0 - draw a point
 	*/
 	if (rad == 0) {
 		return (pixelRGBA(renderer, x, y, r, g, b, a));

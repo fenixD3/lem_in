@@ -3,7 +3,6 @@
 //
 
 #include "vizual.h"
-#include "lem_in.h"
 
 void	quit_viz(t_viz *viz)
 {
