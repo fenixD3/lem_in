@@ -8,6 +8,7 @@
 # include "lem_in.h"
 # include <SDL.h>
 # include <SDL2_gfxPrimitives.h>
+# include "libft.h"
 
 # define RAD 50
 
@@ -19,7 +20,11 @@ typedef struct	s_viz
 	Sint16			win_h;
 	Sint16			offset_x;
 	Sint16			offset_y;
+	double			scale_x;
+	double			scale_y;
 	Sint16 			diam;
+	Sint16			cent_x;
+	Sint16			cent_y;
 }				t_viz;
 
 void	make_vizual(t_viz *vz, t_grp grp);
@@ -33,5 +38,6 @@ void	draw_field(t_grp grp, t_viz vz);
 Sint16	get_diam(int win_w, int win_h, t_room *room);
 int		rooms_count(t_room *room);
 void	get_offset(t_viz *vz, t_room *room);
+void	get_center(t_viz *vz, t_room *curr_room, t_room *prev_room);
 
 #endif

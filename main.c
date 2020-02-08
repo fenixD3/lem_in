@@ -33,7 +33,7 @@ int		main(int ac, char **av)
 	grp.start = NULL;
 	grp.end = NULL;
 	flist = making_lists(&grp, &ants);
-	make_vizual(&vz, grp);
+ 	make_vizual(&vz, grp);
 	if (!is_one_step_way(&grp))
 		finding_ways(&grp);
 	if (!check_ways(grp.start->link))

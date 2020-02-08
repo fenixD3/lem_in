@@ -32,23 +32,31 @@ void	drawing_all(t_grp grp, t_viz vz)
 void	draw_field(t_grp grp, t_viz vz)
 {
 	t_room	*room;
+	t_room	*prev;
 
 	room = grp.room;
-	SDL_RenderClear(vz.renderer);
+	prev = NULL;
+	//SDL_RenderClear(vz.renderer);
 	SDL_SetRenderDrawColor(vz.renderer, 0, 0, 0, 0);
 	SDL_RenderClear(vz.renderer);
 	while (room)
 	{
 		handle_events();
+		get_center(&vz, room, prev);
 		if (room == grp.start)
-			aacircleRGBA(vz.renderer, room->x + vz.offset_x,
-				room->y + vz.offset_y, RAD, 0, 0xFF, 0, 0xFF);
+			aacircleRGBA(vz.renderer, vz.cent_x,//room->x + vz.offset_x,
+				vz.cent_y,//room->y + vz.offset_y,
+				vz.diam / 2, 0, 0xFF, 0, 0xFF);
 		else if (room == grp.end)
-			aacircleRGBA(vz.renderer, room->x + vz.offset_x,
-				room->y + vz.offset_y, RAD, 0, 0, 0xFF, 0xFF);
+			aacircleRGBA(vz.renderer, vz.cent_x,//room->x + vz.offset_x,
+				vz.cent_y,//room->y + vz.offset_y,
+				vz.diam / 2, 0, 0, 0xFF, 0xFF);
 		else
-			aacircleRGBA(vz.renderer, room->x + vz.offset_x,
-				room->y + vz.offset_y, RAD, 0xFF, 0, 0, 0xFF);
+			aacircleRGBA(vz.renderer, vz.cent_x,//room->x + vz.offset_x,
+				vz.cent_y,//room->y + vz.offset_y,
+				vz.diam / 2, 0xFF, 0, 0, 0xFF);
+		//stringRGBA(vz.renderer, vz.cent_x, vz.cent_y, room->name, 0xFF, 0, 0, 0xFF);
+		prev = room;
 		room = room->next;
 	}
 	SDL_RenderPresent(vz.renderer);
