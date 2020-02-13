@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_reverse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 18:59:32 by ylila             #+#    #+#             */
-/*   Updated: 2019/08/10 19:41:03 by mdeanne          ###   ########.fr       */
+/*   Created: 2019/12/12 19:22:32 by ylila             #+#    #+#             */
+/*   Updated: 2019/12/12 19:23:46 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	len_num(int num)
+char	*ft_reverse(char *str)
 {
-	if (num >= 0 && num <= 9)
-		return (1);
-	return (len_num(num / 10) + 1);
-}
+	size_t	len;
+	char	tmp;
+	size_t	i;
 
-char			*ft_itoa(int n)
-{
-	char			*str;
-	size_t			len;
-	unsigned int	nbr;
-
-	len = len_num(n);
-	if (!(str = ft_strnew(len)))
-		return (NULL);
-	nbr = (n < 0) ? (unsigned int)(-n) : (unsigned int)(n);
-	if (nbr == 0)
-		*str = '0';
-	while (len-- && nbr)
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len / 2)
 	{
-		str[len] = (nbr % 10) + '0';
-		nbr /= 10;
+		tmp = str[i];
+		str[i] = str[len - 1 - i];
+		str[len - 1 - i] = tmp;
+		++i;
 	}
-	if (n < 0)
-		str[len] = '-';
 	return (str);
 }

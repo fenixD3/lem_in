@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
-
-#include <stdio.h>
+#include "lem_in.h"
 
 int		set_depth(t_room *room, t_grp *grp)
 {

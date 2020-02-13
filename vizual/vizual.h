@@ -6,23 +6,28 @@
 # define VIZUAL_H
 
 # include "lem_in.h"
-#include "ways_and_ants.h"
+# include "ways_and_ants.h"
 # include <SDL.h>
 # include <SDL2_gfxPrimitives.h>
 # include "libft.h"
 
-# define RAD 50
+# define FLG_VZ 1u
 
 /*
 ** cent_x & cent_y calculate for every room
 */
+
+typedef struct	s_action
+{
+	uint8_t	define_start;
+	uint8_t go_to_end;
+}				t_action;
 
 typedef struct	s_viz
 {
 	SDL_Window		*window;
 	SDL_Renderer	*renderer;
 	SDL_Texture		*ants;
-	SDL_Texture		*black;
 	Sint16			win_w;
 	Sint16			win_h;
 	Sint16			offset_x;
@@ -30,6 +35,8 @@ typedef struct	s_viz
 	double			scale_x;
 	double			scale_y;
 	Sint16 			diam;
+	uint8_t			flg;
+	t_action		action;
 }				t_viz;
 
 void	make_vizual(t_viz *vz, t_grp grp);
@@ -48,5 +55,11 @@ void	define_start_ants(t_room *start, t_viz *vz, int ants_cnt);
 void	draw_ant_step(t_ant *ant, t_viz *vz);
 SDL_Rect get_rect_for_texture(t_room *room, Sint16 diam);
 void	first_go_ants_to_exit(t_grp *grp, t_viz *vz, int ants_cnt);
+
+void	put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz,
+					int ants_cnt);
+
+void	set_action(t_viz *vz, uint8_t def_start, uint8_t go_end);
+void	draw(t_grp *grp, t_viz *vz, t_ant *ant, int ants_cnt);
 
 #endif

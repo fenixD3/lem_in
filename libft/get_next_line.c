@@ -11,21 +11,20 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int		check(char *str, int ret, char **line, t_list **cur)
 {
 	if (ret == -1 || (!str || !*str))
 		return (ret == -1 ? -1 : 0);
 	if (!(*line = (!(ft_strchr(str, '\n')) ? ft_strdup(str) :
-			ft_strndup(str, ft_strchr(str, '\n') - str))))
+				   ft_strndup(str, ft_strchr(str, '\n') - str))))
 		return (-1);
 	if ((ret == 0 && !*str))
 		*cur = ft_lstcirc_delelem(cur);
 	if (ft_strchr(str, '\n'))
 		ft_strcpy(str, ft_strchr(str, '\n') + 1);
-	if (ft_strcmp(*line, str) == 0)
-		ft_strclr(str);
+	else
+		*str = '\0';
 	return (1);
 }
 

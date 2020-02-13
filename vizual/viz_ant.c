@@ -3,7 +3,6 @@
 //
 
 #include "vizual.h"
-#include "ways_and_ants.h"
 
 void	draw_ant_step(t_ant *ant, t_viz *vz)
 {
@@ -40,9 +39,9 @@ void	define_start_ants(t_room *start, t_viz *vz, int ants_cnt)
 	SDL_RenderCopy(vz->renderer, vz->ants, NULL, &rect);
 	while (ants_cnt--)
 		filledCircleRGBA(vz->renderer, start->cent_x, start->cent_y,
-						 vz->diam / 3, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderPresent(vz->renderer);
-	SDL_Delay(1000);
+			vz->diam / 3, 0xFF, 0xFF, 0xFF, 0xFF);
+	/*SDL_RenderPresent(vz->renderer);
+	SDL_Delay(1000);*/
 }
 
 void	first_go_ants_to_exit(t_grp *grp, t_viz *vz, int ants_cnt)
@@ -58,7 +57,7 @@ void	first_go_ants_to_exit(t_grp *grp, t_viz *vz, int ants_cnt)
 	{
 		filledCircleRGBA(vz->renderer, grp->end->cent_x, grp->end->cent_y,
 			vz->diam / 3, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderPresent(vz->renderer);
-		SDL_Delay(1000);
+		/*SDL_RenderPresent(vz->renderer);
+		SDL_Delay(1000);*/
 	}
 }

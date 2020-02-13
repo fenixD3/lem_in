@@ -33,3 +33,9 @@ void	handle_events(void)
 	if (ev.type == SDL_QUIT)
 		;
 }
+
+void	set_action(t_viz *vz, uint8_t def_start, uint8_t go_end)
+{
+	vz->action.define_start = def_start;
+	vz->action.go_to_end = go_end;
+}

@@ -13,7 +13,8 @@
 #ifndef WAYS_AND_ANTS_H
 # define WAYS_AND_ANTS_H
 
-# include <lem_in.h>
+# include "lem_in.h"
+# include "ft_ptintf.h"
 
 typedef struct	s_way
 {

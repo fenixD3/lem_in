@@ -23,7 +23,7 @@ t_fline		*making_lists(t_grp *grp, int *ants)
 
 	///////////
 	int fd = 0;
-	if ((fd = open("C:\\Users\\da.filiptsev\\Desktop\\Archive\\lem-in_maps\\map_6", O_RDONLY)) < 0)
+	if ((fd = open("/Users/ylila/Desktop/Archive/lem-in_maps/map_6", O_RDONLY)) < 0)
 		go_exit("ERROR: in read_and_check file");
 	///////////
 	fileline = read_and_save_file(fd);

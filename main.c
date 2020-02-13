@@ -12,16 +12,22 @@
 
 #include <stdlib.h>
 #include "includes/lem_in.h"
-#include <ways_and_ants.h>
+#include "ways_and_ants.h"
 #include "vizual/vizual.h"
-////
-#include <time.h>
-#include <stdio.h>
 
-void put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz, int ants_cnt); /// Плохо подключалось
-////
+static void	grp_flg_init(t_grp	*grp, const int ac, char **av, t_viz *vz)
+{
+	grp->room = NULL;
+	grp->start = NULL;
+	grp->end = NULL;
+	vz->flg = 0;
+	if (ac == 1)
+		return ;
+	if (!ft_strcmp(av[1], "-v"))
+		vz->flg |= FLG_VZ;
+}
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_grp	grp;
 	t_way	*ways;
@@ -29,16 +35,15 @@ int		main(int ac, char **av)
 	int		ants;
 	t_viz	vz;
 
-	grp.room = NULL;
-	grp.start = NULL;
-	grp.end = NULL;
+	grp_flg_init(&grp, ac, av, &vz);
 	flist = making_lists(&grp, &ants);
 	if (!is_one_step_way(&grp))
 		finding_ways(&grp);
 	if (!check_ways(grp.start->link))
 		go_exit("ERROR: there is no way from start to end");
 	ways = count_ants_for_way(grp.start->link, &grp, ants);
-	make_vizual(&vz, grp);
+//	vz.flg ? make_vizual(&vz, grp) : 0;
+	vz.flg ? init_viz(&vz, grp.room) : 0;
 	while (flist)
 	{
 		ft_putendl(flist->line);
@@ -46,6 +51,6 @@ int		main(int ac, char **av)
 	}
 	ft_putchar('\n');
 	put_ants_steps(ways, &grp, &vz, ants);
-	quit_viz(&vz);
+	vz.flg ? quit_viz(&vz) : 0;
 	exit(0);
 }
