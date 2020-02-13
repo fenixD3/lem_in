@@ -12,6 +12,7 @@
 
 #include <ways_and_ants.h>
 #include <stdio.h> ////!!!!!!!!!!!!!!!!!!!!
+#include <vizual.h>
 
 t_room	*find_next_room(t_ant *ant, t_grp *grp)
 {
@@ -84,13 +85,14 @@ void	push_ants(t_ant **head, t_way *ways, t_grp *grp)
 	}
 }
 
-_Bool	put_ants_statuses(t_ant *ant)
+_Bool	put_ants_statuses(t_ant *ant, t_viz *vz)
 {
 	if (!ant)
 		return (0);
 	while (ant)
 	{
 		printf("L%d-%s", ant->number, ant->room->name);
+		draw_ant_step(ant, vz);
 		ant = ant->next;
 		if (ant)
 			printf(" ");
@@ -99,21 +101,23 @@ _Bool	put_ants_statuses(t_ant *ant)
 	return (1);
 }
 
-void	put_ants_steps(t_way *ways, t_grp *grp)
+void	put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz, int ants_cnt)
 {
 	t_ant	*head;
 	int		i;
 
+	define_start_ants(grp->start, vz, ants_cnt);
 	if (ways->room == grp->end)
 	{
 		i = 1;
 		while (ways->ants-- > 1)
 			printf("L%d-%s ", i++, grp->end->name);
 		printf("L%d-%s", i, grp->end->name);
+		first_go_ants_to_exit(grp, vz, ants_cnt);
 		return ;
 	}
 	head = NULL;
 	push_ants(&head, ways, grp);
-	while (put_ants_statuses(head))
+	while (put_ants_statuses(head, vz))
 		push_ants(&head, ways, grp);
 }

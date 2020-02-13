@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "../read_and_check/readfile.h"
+# include <stdint.h>
 
 typedef struct	s_room
 {
@@ -25,6 +26,8 @@ typedef struct	s_room
 	struct s_room	*next;
 	int				depth;
 	int				way_nu;
+	int16_t			cent_x;
+	int16_t			cent_y;
 }				t_room;
 
 typedef struct	s_link

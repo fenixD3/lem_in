@@ -6,6 +6,7 @@
 
 void	quit_viz(t_viz *viz)
 {
+	SDL_DestroyTexture(viz->ants);
 	SDL_DestroyRenderer(viz->renderer);
 	viz->renderer = NULL;
 	SDL_DestroyWindow(viz->window);

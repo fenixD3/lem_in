@@ -4,21 +4,14 @@
 
 #include "vizual.h"
 
-Sint16	get_diam(int win_w, int win_h, t_room *room)
+static void	get_distinct_coords(t_room *room, int *dist_x, int *dist_y)
 {
-	int		diam_x;
-	int		diam_y;
 	t_room	*head;
 	t_room	*curr;
-	int 	dist_x;
-	int 	dist_y;
 	int 	count_x;
 	int		count_y;
 
-	//diam_x = ft_sqrt(win_w * win_h / rooms_count(room), 0) / 2;
 	head = room;
-	dist_x = 0;
-	dist_y = 0;
 	while (room)
 	{
 		count_x = 0;
@@ -33,11 +26,24 @@ Sint16	get_diam(int win_w, int win_h, t_room *room)
 			curr = curr->next;
 		}
 		if (count_x == 0)
-			++dist_x;
+			++*dist_x;
 		if (count_y == 0)
-			++dist_y;
+			++*dist_y;
 		room = room->next;
 	}
+}
+
+Sint16	get_diam(int win_w, int win_h, t_room *room)
+{
+	int		diam_x;
+	int		diam_y;
+	int 	dist_x;
+	int 	dist_y;
+
+	//diam_x = ft_sqrt(win_w * win_h / rooms_count(room), 0) / 2;
+	dist_x = 0;
+	dist_y = 0;
+	get_distinct_coords(room, &dist_x, &dist_y);
 	diam_x = win_w / (dist_x * 10);
 	diam_y = win_h / (dist_y * 10);
 	/*if (diam_x > SDL_MAX_SINT16)
@@ -45,27 +51,14 @@ Sint16	get_diam(int win_w, int win_h, t_room *room)
 	return (diam_x < diam_y ? (Sint16)diam_x : (Sint16)diam_y);
 }
 
-int		rooms_count(t_room *room)
-{
-	int	cnt;
-
-	cnt = 0;
-	while (room)
-	{
-		++cnt;
-		room = room->next;
-	}
-	return (cnt);
-}
-
-void	get_offset(t_viz *vz, t_room *room)
+void	get_scale_offset(t_viz *vz, t_room *room)
 {
 	Sint16	x_min;
 	Sint16	x_max;
 	Sint16	y_min;
 	Sint16	y_max;
-	Sint16	delta_x;
-	Sint16	delta_y;
+	Sint16	delta_x; /// may delete
+	Sint16	delta_y; /// may delete
 
 	x_min = SDL_MAX_SINT16;
 	y_min = SDL_MAX_SINT16;
@@ -89,7 +82,7 @@ void	get_offset(t_viz *vz, t_room *room)
 	vz->offset_y = ((Sint16)vz->win_h - (y_max - y_min) + vz->diam / 2) / 2;*/
 }
 
-void	get_center(t_viz *vz, t_room *curr_room, t_room *prev_room)
+void get_center(t_viz *vz, t_room *curr_room)
 {
 	Sint16	cent_x;
 	Sint16	cent_y;
@@ -100,8 +93,14 @@ void	get_center(t_viz *vz, t_room *curr_room, t_room *prev_room)
 		cent_x += vz->diam + 40;
 	if (prev_room && cent_y <= prev_room->y + vz->offset_y)
 		cent_y += vz->diam + 40;*/
-	cent_x = (Sint16)floor(vz->win_w / 10. + (curr_room->x - vz->offset_x) * vz->scale_x);
-	cent_y = (Sint16)floor(vz->win_h / 10. + (curr_room->y - vz->offset_y) * vz->scale_y);
-	vz->cent_x = cent_x;
-	vz->cent_y = cent_y;
+	cent_x = (Sint16)floor(vz->win_w / 100. + (curr_room->x - vz->offset_x) * vz->scale_x);
+	cent_y = (Sint16)floor(vz->win_h / 100. + (curr_room->y - vz->offset_y) * vz->scale_y);
+	/*vz->cent_x = cent_x;
+	vz->cent_y = cent_y;*/
+	if (cent_x >= vz->win_w)
+		cent_x = vz->win_w - vz->diam / 2;
+	if (cent_y >= vz->win_h)
+		cent_y = vz->win_h - vz->diam / 2;
+	curr_room->cent_x = cent_x;
+	curr_room->cent_y = cent_y;
 }
