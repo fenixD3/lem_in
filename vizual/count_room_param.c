@@ -1,6 +1,14 @@
-//
-// Created by da.filiptsev on 07.02.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_room_param.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/14 23:38:44 by ylila             #+#    #+#             */
+/*   Updated: 2020/02/14 23:41:31 by ylila            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "vizual.h"
 
@@ -8,7 +16,7 @@ static void	get_distinct_coords(t_room *room, int *dist_x, int *dist_y)
 {
 	t_room	*head;
 	t_room	*curr;
-	int 	count_x;
+	int		count_x;
 	int		count_y;
 
 	head = room;
@@ -37,8 +45,8 @@ Sint16		get_diam(int win_w, int win_h, t_room *room)
 {
 	int		diam_x;
 	int		diam_y;
-	int 	dist_x;
-	int 	dist_y;
+	int		dist_x;
+	int		dist_y;
 
 	dist_x = 0;
 	dist_y = 0;

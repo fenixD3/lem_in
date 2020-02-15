@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <lem_in.h>
+#include "lem_in.h"
 
 int		check_room(char *line, int type, int *flag)
 {
@@ -85,6 +84,8 @@ int		type_of_line(char *line)
 			return (1);
 		else if (!ft_strcmp(line + 1, "#end"))
 			return (2);
+		else
+			return (0);
 	}
 	else if (ft_strchr(line, ' '))
 		return (3);

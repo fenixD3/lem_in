@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <lem_in.h>
+#include "lem_in.h"
 
 void	push_room(t_room **head, char *line)
 {
@@ -35,6 +34,7 @@ void	push_room(t_room **head, char *line)
 	tmp = ft_strchr(tmp, ' ');
 	new->y = ft_atoi(tmp);
 	*head = new;
+	check_rooms_duplicates(*head);
 }
 
 void	find_rooms(t_room **room1, t_room **room2, char *name)

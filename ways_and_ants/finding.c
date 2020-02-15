@@ -65,8 +65,6 @@ int		moon(t_grp *grp)
 	depth = 0;
 	while (grp->end->depth == 0)
 	{
-		if (depth == 3)
-			depth = depth;
 		if (!wave(grp->start, NULL, depth, grp))
 			break ;
 		depth++;

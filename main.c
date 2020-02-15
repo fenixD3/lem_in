@@ -6,16 +6,16 @@
 /*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:25:57 by mdeanne           #+#    #+#             */
-/*   Updated: 2020/02/04 18:26:02 by mdeanne          ###   ########.fr       */
+/*   Updated: 2020/02/14 23:34:32 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "includes/lem_in.h"
 #include "ways_and_ants.h"
-#include "vizual/vizual.h"
+#include "vizual.h"
 
-static void	grp_flg_init(t_grp	*grp, const int ac, char **av, t_viz *vz)
+static void	grp_flg_init(t_grp *grp, const int ac, char **av, t_viz *vz)
 {
 	grp->room = NULL;
 	grp->start = NULL;
@@ -42,7 +42,6 @@ int			main(int ac, char **av)
 	if (!check_ways(grp.start->link))
 		go_exit("ERROR: there is no way from start to end");
 	ways = count_ants_for_way(grp.start->link, &grp, ants);
-//	vz.flg ? make_vizual(&vz, grp) : 0;
 	vz.flg ? init_viz(&vz, grp.room) : 0;
 	while (flist)
 	{
@@ -50,7 +49,7 @@ int			main(int ac, char **av)
 		flist = flist->next;
 	}
 	ft_putchar('\n');
-	put_ants_steps(ways, &grp, &vz, ants);
+	put_ants_steps(ways, &grp, &vz);
 	vz.flg ? quit_viz(&vz) : 0;
 	exit(0);
 }

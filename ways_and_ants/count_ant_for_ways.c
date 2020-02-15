@@ -6,7 +6,7 @@
 /*   By: mdeanne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:28:08 by mdeanne           #+#    #+#             */
-/*   Updated: 2020/02/04 18:28:10 by mdeanne          ###   ########.fr       */
+/*   Updated: 2020/02/14 23:36:31 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,19 @@ t_way			*count_ants_for_way(t_link *link, t_grp *grp, int ants)
 		}
 	}
 	return (ways);
+}
+
+t_room			*find_next_room(t_ant *ant, t_grp *grp)
+{
+	t_link *link;
+
+	link = ant->room->link;
+	while (link)
+	{
+		if (link->room->way_nu == ant->room->way_nu &&
+			link->room != ant->prev_room)
+			break ;
+		link = link->next;
+	}
+	return (link ? link->room : grp->end);
 }

@@ -1,6 +1,14 @@
-//
-// Created by Yeste Lila on 05/02/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vizual_helper.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/14 23:37:32 by ylila             #+#    #+#             */
+/*   Updated: 2020/02/14 23:42:09 by ylila            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "vizual.h"
 
@@ -34,8 +42,7 @@ void	handle_events(void)
 		;
 }
 
-void	set_action(t_viz *vz, uint8_t def_start, uint8_t go_end)
+void	set_action(t_viz *vz, uint8_t go_end)
 {
-	vz->action.define_start = def_start;
 	vz->action.go_to_end = go_end;
 }

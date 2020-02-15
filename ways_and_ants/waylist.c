@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <lem_in.h>
+#include "lem_in.h"
 #include "ways_and_ants.h"
 
 void	push_way(t_way **head, t_room *room)

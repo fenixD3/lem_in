@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "lem_in.h"
 #include "readfile.h"
 
 void	making_links(t_fline *lst, t_room **room)
@@ -18,6 +18,7 @@ void	making_links(t_fline *lst, t_room **room)
 	t_room *tmp;
 	t_room *prev;
 
+	tmp = NULL;
 	while (lst)
 	{
 		if (type_of_line(lst->line) == 4)

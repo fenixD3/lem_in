@@ -28,13 +28,15 @@ SRC_FILES_FLOAT = check_create_float_res.c e_flag_intf.c float_intf.c float_roun
 	ft_log2.c g_flag_intf.c get_dbl_values.c get_ldbl_values.c high_precision.c high_precision_intf.c \
 	high_precision_intf_long.c high_precision_long.c my_float.c my_long_float.c print_reserve_dbl.c
 
-SRCS_GEN = $(addprefix $(SRC_GEN),$(SRC_FILES_GEN))
-SRCS_FLOAT = $(addprefix $(SRC_FLOAT),$(SRC_FILES_FLOAT))
-
 OBJS = $(SRC_FILES_GEN:.c=.o) $(SRC_FILES_FLOAT:.c=.o)
+
+HEADERS_NAME = ft_ptintf.h high_precision.h my_float.h
+HEADERS_PRTF = $(addprefix $(HEAD_PATH),$(HEADERS_NAME))
 
 print-%:
 	@echo $*=$($*)
+
+vpath %.c ./srcs ./srcsFloat
 
 all: $(NAME)
 
@@ -44,12 +46,12 @@ $(NAME): $(LIB_NAME) $(OBJS)
 	@ranlib $(NAME)
 
 $(LIB_NAME):
-	@make -C $(LIB_PATH) re
+	@make -C $(LIB_PATH)
 
-$(OBJS):
-	@gcc -c $(SRCS_GEN) $(FLAGS) -I$(HEAD_PATH) -I$(LIB_PATH) -O3
-	@gcc -c $(SRCS_FLOAT) $(FLAGS) -I$(HEAD_PATH) -I$(LIB_PATH) -O3
+$(OBJS): %.o: %.c $(HEADERS_PRTF)
+	@gcc -c $< -I$(HEAD_PATH) -I$(LIB_PATH) $(FLAGS) -O3 -o $@
 
+.PHONY: clean fclean re
 clean:
 	@rm -f $(OBJS)
 	@make -C $(LIB_PATH) clean

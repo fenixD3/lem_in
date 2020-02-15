@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   draw_ant_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeanne <mdeanne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/20 17:59:07 by mdeanne           #+#    #+#             */
-/*   Updated: 2019/06/27 16:33:11 by mdeanne          ###   ########.fr       */
+/*   Created: 2020/02/14 23:37:04 by ylila             #+#    #+#             */
+/*   Updated: 2020/02/14 23:37:06 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 256
-# include "libft.h"
+#include "vizual.h"
 
-int				get_next_line(const int fd, char **line);
+int		get_start_ants(t_way *ways)
+{
+	int	ants;
 
-#endif
+	ants = 0;
+	while (ways)
+	{
+		if (ways->open)
+			ants += ways->ants;
+		ways = ways->next;
+	}
+	return (ants);
+}

@@ -13,21 +13,6 @@
 #include "ways_and_ants.h"
 #include "vizual.h"
 
-t_room	*find_next_room(t_ant *ant, t_grp *grp)
-{
-	t_link *link;
-
-	link = ant->room->link;
-	while (link)
-	{
-		if (link->room->way_nu == ant->room->way_nu &&
-											link->room != ant->prev_room)
-			break ;
-		link = link->next;
-	}
-	return (link ? link->room : grp->end);
-}
-
 void	kill_ants(t_ant **head, t_room *end)
 {
 	t_ant *tmp;
@@ -84,45 +69,50 @@ void	push_ants(t_ant **head, t_way *ways, t_grp *grp)
 	}
 }
 
-_Bool put_ants_statuses(t_ant *ant, t_viz *vz, t_grp *grp, int ants_cnt)
+_Bool	put_ants_statuses(t_ant *ant, t_viz *vz, t_grp *grp, t_way *ways)
 {
 	if (!ant)
 		return (0);
-	vz->flg ? set_action(vz, 0, 0) : 0;
+	vz->flg ? set_action(vz, 0) : 0;
+	vz->flg ? SDL_RenderClear(vz->renderer) : 0;
+	vz->flg ? SDL_SetRenderDrawColor(vz->renderer, 0, 0, 0, 0) : 0;
+	vz->flg ? SDL_RenderClear(vz->renderer) : 0;
 	while (ant)
 	{
 		ft_printf("L%d-%s", ant->number, ant->room->name);
-//		vz->flg ? draw_ant_step(ant, vz) : 0;
-		vz->flg ? draw(grp, vz, ant, ants_cnt) : 0;
+		vz->flg ? draw(grp, vz, ant, ways) : 0;
 		ant = ant->next;
 		if (ant)
 			ft_printf(" ");
 	}
+	vz->flg ? SDL_RenderPresent(vz->renderer) : 0;
+	vz->flg ? SDL_Delay(1000) : 0;
 	ft_printf("\n");
 	return (1);
 }
 
-void	put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz, int ants_cnt)
+void	put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz)
 {
 	t_ant	*head;
 	int		i;
 
-	vz->flg ? set_action(vz, 1, 0) : 0;
-//	vz->flg ? define_start_ants(grp->start, vz, ants_cnt) : 0;
-	vz->flg ? draw(grp, vz, head, ants_cnt) : 0;
+	head = NULL;
 	if (ways->room == grp->end)
 	{
 		i = 1;
 		while (ways->ants-- > 1)
 			ft_printf("L%d-%s ", i++, grp->end->name);
 		ft_printf("L%d-%s", i, grp->end->name);
-		vz->flg ? set_action(vz, 0, 1) : 0;
-//		vz->flg ? first_go_ants_to_exit(grp, vz, ants_cnt) : 0;
-		vz->flg ? draw(grp, vz, head, ants_cnt) : 0;
+		vz->flg ? set_action(vz, 1) : 0;
+		vz->flg ? SDL_RenderClear(vz->renderer) : 0;
+		vz->flg ? SDL_SetRenderDrawColor(vz->renderer, 0, 0, 0, 0) : 0;
+		vz->flg ? SDL_RenderClear(vz->renderer) : 0;
+		vz->flg ? draw(grp, vz, head, ways) : 0;
+		vz->flg ? SDL_RenderPresent(vz->renderer) : 0;
+		vz->flg ? SDL_Delay(1000) : 0;
 		return ;
 	}
-	head = NULL;
 	push_ants(&head, ways, grp);
-	while (put_ants_statuses(head, vz, grp, ants_cnt))
+	while (put_ants_statuses(head, vz, grp, ways))
 		push_ants(&head, ways, grp);
 }

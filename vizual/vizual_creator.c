@@ -1,30 +1,30 @@
-//
-// Created by Yeste Lila on 05/02/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vizual_creator.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/14 23:37:27 by ylila             #+#    #+#             */
+/*   Updated: 2020/02/14 23:44:14 by ylila            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "vizual.h"
 #include "ways_and_ants.h"
 
-void	make_vizual(t_viz *vz, t_grp grp)
+void	draw(t_grp *grp, t_viz *vz, t_ant *ant, t_way *ways)
 {
-	init_viz(vz, grp.room);
-	draw_field(grp, *vz);
-}
+	int	start_ants;
 
-void	draw(t_grp *grp, t_viz *vz, t_ant *ant, int ants_cnt)
-{
 	handle_events();
-	SDL_SetRenderDrawColor(vz->renderer, 0, 0, 0, 0);
-	SDL_RenderClear(vz->renderer);
 	draw_field(*grp, *vz);
-	if (vz->action.define_start)
-		define_start_ants(grp->start, vz, ants_cnt);
+	if ((start_ants = get_start_ants(ways)))
+		define_start_ants(grp->start, vz, start_ants);
 	if (vz->action.go_to_end)
-		first_go_ants_to_exit(grp, vz, ants_cnt);
-	if (!vz->action.go_to_end && !vz->action.define_start)
+		first_go_ants_to_exit(grp, vz, start_ants);
+	else
 		draw_ant_step(ant, vz);
-	SDL_RenderPresent(vz->renderer);
-	SDL_Delay(1000);
 }
 
 void	init_viz(t_viz *viz, t_room *room)
@@ -49,6 +49,7 @@ void	init_viz(t_viz *viz, t_room *room)
 			SDL_TEXTUREACCESS_TARGET, viz->win_w, viz->win_h)))
 		viz_error(viz);
 	get_scale_offset(viz, room);
+	ft_memcpy(&viz->action, &(t_action){0}, sizeof(t_action));
 }
 
 void	draw_field(t_grp grp, t_viz vz)
@@ -56,26 +57,21 @@ void	draw_field(t_grp grp, t_viz vz)
 	t_room	*room;
 
 	room = grp.room;
-	/*SDL_SetRenderDrawColor(vz.renderer, 0, 0, 0, 0);
-	SDL_RenderClear(vz.renderer);*/
 	while (room)
 	{
-//		handle_events();
 		get_center(&vz, room);
 		if (room == grp.start)
 			aacircleRGBA(vz.renderer, room->cent_x, room->cent_y,
 					vz.diam / 2, 0, 0xFF, 0, 0xFF);
 		else if (room == grp.end)
 			aacircleRGBA(vz.renderer, room->cent_x, room->cent_y,
-						 vz.diam / 2, 0, 0, 0xFF, 0xFF);
+						vz.diam / 2, 0, 0, 0xFF, 0xFF);
 		else
 			aacircleRGBA(vz.renderer, room->cent_x, room->cent_y,
-						 vz.diam / 2, 0xFF, 0, 0, 0xFF);
+						vz.diam / 2, 0xFF, 0, 0, 0xFF);
 		room = room->next;
 	}
 	draw_links(grp, vz);
-	/*SDL_RenderPresent(vz.renderer);
-	SDL_Delay(2000);*/
 }
 
 void	draw_links(t_grp grp, t_viz vz)
@@ -86,13 +82,12 @@ void	draw_links(t_grp grp, t_viz vz)
 	room = grp.room;
 	while (room)
 	{
-//		handle_events();
 		connect = room->link;
 		while (connect)
 		{
 			if ((room->way_nu > 0 || room == grp.start || room == grp.end)
-				&& connect->room->way_nu > 0)
-					thickLineRGBA(vz.renderer, room->cent_x, room->cent_y,
+			&& connect->room->way_nu > 0)
+				thickLineRGBA(vz.renderer, room->cent_x, room->cent_y,
 						connect->room->cent_x, connect->room->cent_y, 2,
 						0xFF, 0, 0xFF, 0xFF);
 			else
