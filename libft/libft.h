@@ -6,7 +6,7 @@
 /*   By: ylila <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 12:36:34 by ylila             #+#    #+#             */
-/*   Updated: 2020/01/31 21:02:08 by yas              ###   ########.fr       */
+/*   Updated: 2020/02/13 21:21:34 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 
 # include "memlist.h"
 
@@ -84,6 +85,12 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+struct			s_comp
+{
+	int32_t		exp_val;
+	uint64_t	mant;
+};
+
 t_list			*ft_lstnew(const void *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
@@ -113,5 +120,12 @@ t_list			*ft_lstcirc_delelem(t_list **del_elem);
 int				ft_lstcirc_findcontent_size(t_list **lst, size_t content_size);
 
 int				ft_is_complex_string(char *str, char delim);
+
+double			ft_floor(double num);
+long double		ft_flooril(long double num);
+double			ft_log2(long double num);
+double			ft_log10(long double num);
+char			*ft_reverse(char *str);
+int32_t			ft_abs(int32_t num);
 
 #endif

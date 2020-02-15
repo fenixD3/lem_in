@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
-
-#include <stdio.h>
+#include "lem_in.h"
 
 int		set_depth(t_room *room, t_grp *grp)
 {
@@ -67,8 +65,6 @@ int		moon(t_grp *grp)
 	depth = 0;
 	while (grp->end->depth == 0)
 	{
-		if (depth == 3)
-			depth = depth;
 		if (!wave(grp->start, NULL, depth, grp))
 			break ;
 		depth++;

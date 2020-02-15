@@ -13,7 +13,8 @@
 #ifndef WAYS_AND_ANTS_H
 # define WAYS_AND_ANTS_H
 
-# include <lem_in.h>
+# include "lem_in.h"
+# include "ft_ptintf.h"
 
 typedef struct	s_way
 {
@@ -34,5 +35,6 @@ typedef struct	s_ant
 void			push_way(t_way **head, t_room *room);
 t_way			*make_way_list(t_link *link, int max_way_num);
 t_way			*count_ants_for_way(t_link *link, t_grp *grp, int ants);
+t_room			*find_next_room(t_ant *ant, t_grp *grp);
 
 #endif

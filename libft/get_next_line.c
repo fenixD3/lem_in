@@ -6,26 +6,25 @@
 /*   By: mdeanne <mdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 20:08:50 by mdeanne           #+#    #+#             */
-/*   Updated: 2019/06/27 17:29:14 by mdeanne          ###   ########.fr       */
+/*   Updated: 2020/02/14 23:32:22 by ylila            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int		check(char *str, int ret, char **line, t_list **cur)
 {
 	if (ret == -1 || (!str || !*str))
 		return (ret == -1 ? -1 : 0);
 	if (!(*line = (!(ft_strchr(str, '\n')) ? ft_strdup(str) :
-			ft_strndup(str, ft_strchr(str, '\n') - str))))
+				ft_strndup(str, ft_strchr(str, '\n') - str))))
 		return (-1);
 	if ((ret == 0 && !*str))
 		*cur = ft_lstcirc_delelem(cur);
 	if (ft_strchr(str, '\n'))
 		ft_strcpy(str, ft_strchr(str, '\n') + 1);
-	if (ft_strcmp(*line, str) == 0)
-		ft_strclr(str);
+	else
+		*str = '\0';
 	return (1);
 }
 
