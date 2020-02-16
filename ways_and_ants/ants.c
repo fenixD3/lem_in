@@ -15,13 +15,29 @@
 
 void	kill_ants(t_ant **head, t_room *end)
 {
-	t_ant *tmp;
+	t_ant *ant;
+	t_ant *prev;
 
 	while (*head && (*head)->room == end)
 	{
-		tmp = *head;
+		ant = *head;
 		*head = (*head)->next;
-		ml_free((void*)tmp);
+		ml_free((void*)ant);
+	}
+	if (*head == NULL)
+		return ;
+	prev = *head;
+	ant = prev->next;
+	while (ant)
+	{
+		if (ant->room == end)
+		{
+			prev->next = ant->next;
+			ml_free((void*)ant);
+		}
+		else
+			prev = prev->next;
+		ant = prev->next;
 	}
 }
 
@@ -102,7 +118,7 @@ void	put_ants_steps(t_way *ways, t_grp *grp, t_viz *vz)
 		i = 1;
 		while (ways->ants-- > 1)
 			ft_printf("L%d-%s ", i++, grp->end->name);
-		ft_printf("L%d-%s", i, grp->end->name);
+		ft_printf("L%d-%s\n", i, grp->end->name);
 		vz->flg ? set_action(vz, 1) : 0;
 		vz->flg ? SDL_RenderClear(vz->renderer) : 0;
 		vz->flg ? SDL_SetRenderDrawColor(vz->renderer, 0, 0, 0, 0) : 0;

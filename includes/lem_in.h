@@ -63,7 +63,7 @@ int				is_one_step_way(t_grp *grp);
 
 int				type_of_line(char *line);
 int				check_valid_line(char *line);
-_Bool			check_ways(t_link *link);
+_Bool			check_ways(t_grp *grp, t_link *link);
 void			check_rooms_duplicates(t_room *head);
 
 #endif

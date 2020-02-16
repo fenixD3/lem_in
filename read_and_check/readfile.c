@@ -45,10 +45,10 @@ t_fline		*read_and_save_file(int fd)
 	{
 		if (!*line)
 		{
-			if (flag == 3)
-				break ;
 			if (get_next_line(fd, &line) > 0)
 				go_exit("ERROR: file contains newline break");
+			if (flag == 3)
+				break ;
 		}
 		flag = check_valid_line(line);
 		add_line_lst(&head, &tail, line);

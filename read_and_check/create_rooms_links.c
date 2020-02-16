@@ -87,11 +87,18 @@ void	add_links(t_room *head, char *line)
 	room2->link = new2;
 }
 
-_Bool	check_ways(t_link *link)
+_Bool	check_ways(t_grp *grp, t_link *link)
 {
 	while (link)
 	{
 		if (link->room->way_nu)
+			return (1);
+		link = link->next;
+	}
+	link = grp->start->link;
+	while (link)
+	{
+		if (link->room == grp->end)
 			return (1);
 		link = link->next;
 	}

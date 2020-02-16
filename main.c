@@ -39,7 +39,7 @@ int			main(int ac, char **av)
 	flist = making_lists(&grp, &ants);
 	if (!is_one_step_way(&grp))
 		finding_ways(&grp);
-	if (!check_ways(grp.start->link))
+	if (!check_ways(&grp, grp.start->link))
 		go_exit("ERROR: there is no way from start to end");
 	ways = count_ants_for_way(grp.start->link, &grp, ants);
 	vz.flg ? init_viz(&vz, grp.room) : 0;

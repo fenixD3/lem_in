@@ -12,6 +12,31 @@
 
 #include "lem_in.h"
 
+void	check_coordinates(char *str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (*str)
+	{
+		if (*str == ' ')
+		{
+			i++;
+			tmp = str + 1;
+			while (*tmp && *tmp != ' ')
+			{
+				if (!ft_isdigit(*tmp))
+					go_exit("ERROR: file contains invalid room");
+				tmp++;
+			}
+		}
+		str++;
+	}
+	if (i != 2)
+		go_exit("ERROR: file contains invalid room");
+}
+
 int		check_room(char *line, int type, int *flag)
 {
 	char	*tmp;
@@ -24,19 +49,13 @@ int		check_room(char *line, int type, int *flag)
 	if (*flag == 1)
 		(*flag)++;
 	i = 0;
+	if (*line == ' ')
+		go_exit("ERROR: room name starts with ' '");
+	if (*line == 'L')
+		go_exit("ERROR: room name starts with 'L'");
 	if ((tmp = ft_strchr(line, ' ')) < ft_strchr(line, '-'))
 		go_exit("ERROR: room name contains '-'");
-	while (*tmp)
-	{
-		i++;
-		tmp++;
-		while (*tmp && ft_isdigit(*tmp))
-			tmp++;
-		if ((*tmp != ' ' || !*tmp) && i > 2)
-			go_exit("ERROR: file contains invalid room");
-	}
-	if (i != 2)
-		go_exit("ERROR: file contains invalid room");
+	check_coordinates(tmp);
 	return (3);
 }
 
@@ -72,28 +91,6 @@ int		check_ants(char *line, int type)
 		line++;
 	}
 	return (5);
-}
-
-int		type_of_line(char *line)
-{
-	if (line[0] == '#')
-	{
-		if (line[1] != '#')
-			return (0);
-		else if (!ft_strcmp(line + 1, "#start"))
-			return (1);
-		else if (!ft_strcmp(line + 1, "#end"))
-			return (2);
-		else
-			return (0);
-	}
-	else if (ft_strchr(line, ' '))
-		return (3);
-	else if (ft_strchr(line, '-'))
-		return (4);
-	else if (ft_isdigit(line[0]))
-		return (5);
-	return (-1);
 }
 
 int		check_valid_line(char *line)

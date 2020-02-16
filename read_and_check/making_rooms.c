@@ -40,6 +40,44 @@ void	making_links(t_fline *lst, t_room **room)
 	}
 }
 
+int		type_of_line(char *line)
+{
+	if (line[0] == '#')
+	{
+		if (line[1] != '#')
+			return (0);
+		else if (!ft_strcmp(line + 1, "#start"))
+			return (1);
+		else if (!ft_strcmp(line + 1, "#end"))
+			return (2);
+		else
+			return (0);
+	}
+	else if (ft_strchr(line, ' '))
+		return (3);
+	else if (ft_strchr(line, '-'))
+		return (4);
+	else if (ft_isdigit(line[0]))
+		return (5);
+	return (-1);
+}
+
+void	check_start_end(int tmp, t_grp *grp, t_room *room)
+{
+	if (tmp == 1 && grp->start == NULL)
+	{
+		if (grp->start != NULL)
+			go_exit("ERROR: ##start duplicated");
+		grp->start = room;
+	}
+	else
+	{
+		if (grp->end != NULL)
+			go_exit("ERROR: ##end duplicated");
+		grp->end = room;
+	}
+}
+
 t_room	*making_rooms_and_links(t_fline *lst, t_grp *grp)
 {
 	t_fline *head;
@@ -56,10 +94,7 @@ t_room	*making_rooms_and_links(t_fline *lst, t_grp *grp)
 		{
 			head = head->next;
 			push_room(&room, head->line);
-			if (tmp == 1)
-				grp->start = room;
-			else
-				grp->end = room;
+			check_start_end(tmp, grp, room);
 		}
 		else if (tmp == 3)
 			push_room(&room, head->line);
