@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ptintf.h"
 #include "lem_in.h"
 #include "readfile.h"
 
@@ -78,25 +79,44 @@ void	check_start_end(int tmp, t_grp *grp, t_room *room)
 	}
 }
 
+void	skip_comment(t_fline **head, int type)
+{
+	t_fline *next;
+	int		type_next;
+
+	next = (*head)->next;
+	type_next = type_of_line(next->line);
+	if (type_next == 0)
+		while (next && (type_next = type_of_line(next->line)) == 0)
+			next = next->next;
+	if (!next || type_next != 3)
+	{
+		ft_printf("ERROR: after ##%s where is not room\n",
+				(type == 1) ? "start" : "end");
+		exit(1);
+	}
+	*head = next;
+}
+
 t_room	*making_rooms_and_links(t_fline *lst, t_grp *grp)
 {
 	t_fline *head;
 	t_room	*room;
-	int		tmp;
+	int		type;
 
 	room = NULL;
 	head = lst;
-	while (!(tmp = type_of_line(head->line)) || tmp == 5)
+	while (!(type = type_of_line(head->line)) || type == 5)
 		head = head->next;
 	while (head)
 	{
-		if ((tmp = type_of_line(head->line)) == 1 || tmp == 2)
+		if (((type = type_of_line(head->line)) == 1 || type == 2))
 		{
-			head = head->next;
+			skip_comment(&head, type);
 			push_room(&room, head->line);
-			check_start_end(tmp, grp, room);
+			check_start_end(type, grp, room);
 		}
-		else if (tmp == 3)
+		else if (type == 3)
 			push_room(&room, head->line);
 		head = head->next;
 	}
